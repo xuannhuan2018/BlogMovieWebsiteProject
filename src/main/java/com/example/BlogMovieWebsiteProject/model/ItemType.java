@@ -1,4 +1,6 @@
 package com.example.BlogMovieWebsiteProject.model;
 
-public class ItemType {
+public enum ItemType
+{
+    IMG, TYPE
 }

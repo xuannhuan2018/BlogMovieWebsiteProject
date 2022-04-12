@@ -1,4 +1,17 @@
 package com.example.BlogMovieWebsiteProject.model;
 
-public class ItemPosts {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ItemPosts
+{
+    private String text;
+    private ItemType type;
+    private int number;
 }
