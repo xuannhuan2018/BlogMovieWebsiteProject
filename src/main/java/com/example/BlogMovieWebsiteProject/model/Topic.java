@@ -1,15 +1,15 @@
 package com.example.BlogMovieWebsiteProject.model;
 
-import org.springframework.data.annotation.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@AllArgsConstructor
+import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.Document;
+
+@Getter
+@Setter
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
+@Document(indexName = "topicmovie")
 public class Topic
 {
     @Id

@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import java.sql.Timestamp;
+
+import java.time.Instant;
 import java.util.List;
 
 @Getter
@@ -25,5 +27,9 @@ public class Posts
     private String name;
     private String description;
     private List<ItemPosts> itemPosts;
-
+    private double IMDb;
+    private double myRating;
+    private List<String> tags;
+    private Instant created;
+    private boolean browser;
 }
