@@ -4,9 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+
 import java.sql.Timestamp;
+import java.time.Instant;
 
 @Getter
 @Setter
@@ -23,21 +26,17 @@ public class Users
     private String password;
     private  String email;
 
-    private  String fullname;
+    private  String full_name;
     private Timestamp birthday;
     private String address;
     private String gender;
-    private Timestamp created;
+    private Instant created;
     private boolean status;
-
-    private enum Role
-    {
-        member, admin
-    }
+    private Roles role;
 
     @Override
     public String toString()
     {
-        return "userId =  " + id + "fullname = " + fullname;
+        return "User ID =  " + id + "Full name = " + full_name;
     }
 }
