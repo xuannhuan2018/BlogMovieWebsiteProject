@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="TemplateMo">
+    <link rel="icon" type="image/png" th:href="@{/logo.ico}"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+          rel="stylesheet">
+
+    <title>Movie Blog</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+<!--    Login-->
+    <link th:href="@{/assets/css/login-register.css}" rel="stylesheet" />
+<!--    <link th:href="@{/assets/css/bootstrap.css}" rel="stylesheet" />-->
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" th:href="@{/assets/css/fontawesome.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/templatemo-stand-blog.css}">
+    <link rel="stylesheet" th:href="@{/assets/css/owl.css}">
+</head>
+<body>
+<!--Begin Header-->
+<header class="" id="header">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <img th:src="@{/logo.ico}"/> &nbsp; &nbsp;<a class="navbar-brand" href="/"><h2>Movie Blog<em>.</em></h2></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Trang chủ
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/post">Bài viết</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/post/new">Viết bài</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/post/my">Bài viết của bạn</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <a class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Tài khoản<i class="fa fa-caret-down" style="display:inline"></i>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                 style="background-color: #f7f7f7">
+                                <a class="dropdown-item" data-toggle="modal" onclick="openLoginModal();">Đăng nhập</a>
+<!--                                <a class="dropdown-item" href="/signup">Đăng ký</a>-->
+                                <a class="dropdown-item" href="/user">Thông tin cá nhân</a>
+                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<!--End Header-->
+<!--Begin Body-->
+<div layout:fragment="~{content}">
+    <p>Changing contents</p>
+</div>
+<!--End Body-->
+
+<!--Begin Footer-->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="social-icons">
+                    <li><a href="/">Travel Blog</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-12">
+                <div class="copyright-text">
+                    <p>Copyright <script>document.write(new Date().getFullYear());</script> Travel Blog.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--End Footer-->
+<!--Begin Login Modal-->
+<div class="modal fade login" id="loginModal">
+    <div class="modal-dialog login animated">
+        <div class="modal-content" style="width: 350px; margin-top: 50%;">
+            <div class="modal-header">
+                &emsp;&ensp;<img th:src="@{/logo.ico}" style="width: 40px; height: 40px"/>
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box">
+                    <div class="content">
+<!--                        <div class="social">-->
+<!--                            <a class="circle github" href="#">-->
+<!--                                <i class="fa fa-github fa-fw"></i>-->
+<!--                            </a>-->
+<!--                            <a id="google_login" class="circle google" href="#">-->
+<!--                                <i class="fa fa-google-plus fa-fw"></i>-->
+<!--                            </a>-->
+<!--                            <a id="facebook_login" class="circle facebook" href="#">-->
+<!--                                <i class="fa fa-facebook fa-fw"></i>-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                        <div class="division">-->
+<!--                            <div class="line l"></div>-->
+<!--                            <span>or</span>-->
+<!--                            <div class="line r"></div>-->
+<!--                        </div>-->
+                        <div class="error"></div>
+                        <div class="form loginBox">
+                            <form method="post" th:action="@{/home/check-login}" accept-charset="UTF-8">
+                                <input id="email" class="form-control" type="text" placeholder="Email" th:name="username">
+                                <input id="password" class="form-control" type="password" placeholder="Password" th:name="password">
+                                <div><b> <span style="color:#6dced5" th:text="${errorMessage}"></span></b></div>
+                                <input class="btn btn-default btn-login" type="submit" value="Login">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="content registerBox" style="display:none;">
+                        <div class="form">
+                            <form method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
+                                <input id="emaill" class="form-control" type="text" placeholder="Email" name="email">
+                                <input id="passwordd" class="form-control" type="password" placeholder="Password" name="password">
+                                <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation">
+                                <input class="btn btn-default btn-register" type="button" value="Create account" name="commit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="forgot login-footer">
+                            <span>Looking to
+                                 <a href="javascript: showRegisterForm();">create an account</a>
+                            ?</span>
+                </div>
+                <div class="forgot register-footer" style="display:none">
+                    <span>Already have an account?</span>
+                    <a href="javascript: showLoginForm();">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Login Modal-->
+<script th:if="${errorMessage}" type="text/javascript" th:inline="javascript">
+    $(document).ready(function(){
+        openLoginModal();
+    });
+
+</script>
+<script th:src="@{/assets/js/jquery-1.10.2.js}" type="text/javascript"></script>
+<script th:src="@{/assets/js/bootstrap.js}" type="text/javascript"></script>
+<script th:src="@{/assets/js/login-register.js}" type="text/javascript"></script>
+
+<!-- Bootstrap core JavaScript -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+
+<!-- Additional Scripts -->
+<script th:src="@{/assets/js/custom.js}"></script>
+<script th:src="@{/assets/js/owl.js}"></script>
+<script th:src="@{/assets/js/slick.js}"></script>
+<script th:src="@{/assets/js/isotope.js}"></script>
+<script th:src="@{/assets/js/accordions.js}"></script>
+
+
+<script language="text/Javascript">
+    cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+    function clearField(t) {                   //declaring the array outside of the
+        if (!cleared[t.id]) {                      // function makes it static and global
+            cleared[t.id] = 1;  // you could use true and false, but that's more typing
+            t.value = '';         // with more chance of typos
+            t.style.color = '#fff';
+        }
+    }
+</script>
+
+</body>
+</html>
