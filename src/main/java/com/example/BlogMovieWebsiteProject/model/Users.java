@@ -7,9 +7,12 @@ import lombok.Setter;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -24,19 +27,8 @@ public class Users
 
     private String username;
     private String password;
-    private  String email;
-
-    private  String full_name;
-    private Timestamp birthday;
-    private String address;
-    private String gender;
-    private Instant created;
+    private String email;
+    private String created;
     private boolean status;
     private Roles role;
-
-    @Override
-    public String toString()
-    {
-        return "User ID =  " + id + "Full name = " + full_name;
-    }
 }

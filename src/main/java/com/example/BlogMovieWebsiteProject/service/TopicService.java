@@ -21,7 +21,7 @@ public class TopicService
     }
 
     public Topic addTopic(TopicDto topicDTo) {
-        Topic topic = new Topic(topicDTo.getId(), topicDTo.getName());
+        Topic topic = new Topic(topicDTo.getId(),topicDTo.getName());
         return topicRepository.save(topic);
     }
 
