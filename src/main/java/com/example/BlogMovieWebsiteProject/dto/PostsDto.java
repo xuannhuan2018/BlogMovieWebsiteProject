@@ -1,24 +1,18 @@
-package com.example.BlogMovieWebsiteProject.model;
+package com.example.BlogMovieWebsiteProject.dto;
 
+import com.example.BlogMovieWebsiteProject.model.ItemPosts;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.stereotype.Indexed;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@Document(indexName = "postsmovie")
-public class Posts
+@NoArgsConstructor
+public class PostsDto
 {
     @Id
     private String Id;
@@ -28,9 +22,9 @@ public class Posts
     private String username;
     private String category;
     private String title;
-    private String imgHeader;
+    private MultipartFile imgHeader;
     private String description;
-    private List<ItemPosts> itemPosts;
+    private List<ItemPostsDto> itemPostsDto;
     private double IMDb;
     private double yourRating;
     private String created;

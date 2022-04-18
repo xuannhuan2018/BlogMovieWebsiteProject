@@ -1,0 +1,5 @@
+1. Tầng Service:
+- kiểm tra các ràng buộc,
+- tính toàn vẹn và hợp lệ của dữ liệu
+- tính toán, xử lý theo các nghiệp vụ và logic của yêu cầu.
+2. Tầng Controller:
