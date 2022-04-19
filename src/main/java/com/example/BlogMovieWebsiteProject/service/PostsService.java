@@ -13,7 +13,9 @@ import org.springframework.util.StringUtils;
 import com.example.BlogMovieWebsiteProject.repository.PostsRepository;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,29 +24,41 @@ public class PostsService
 {
     private final UsersRepository usersRepository;
 
+    @Autowired
     private final PostsRepository postsRepository;
 
+    @Autowired
     private final FileUploadService fileUploadService;
     //private final ConvertService convertService;
 
     public long createPosts (PostsDto postsDto, String username) throws IOException {
         Posts posts = new Posts();
-
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
         posts.setUsername(username);
         posts.setCategory(postsDto.getCategory());
         posts.setTitle(postsDto.getTitle());
         posts.setDescription(postsDto.getDescription());
         posts.setIMDb(postsDto.getIMDb());
         posts.setYourRating(postsDto.getYourRating());
-        //posts.setCreated(convertService.DateTimeToString());
+        posts.setCreated(timestamp.toString());
         posts.setBrowser(false);
 
-        if( postsRepository.findTopByOrderByNumberDesc()==null){
+        List<Posts> postsList = postsRepository.findAll();
+        if(postsList.size() == 0){
             posts.setNumber(0);
         }
         else {
-            posts.setNumber(postsRepository.findTopByOrderByNumberDesc().getNumber() + 1);
+            posts.setNumber(postsList.size() + 1);
         }
+//        if( postsRepository.findTopByOrderByNumberDesc()==null){
+//        if(postsRepository.==null){
+//            posts.setNumber(0);
+//        }
+//        else {
+////            posts.setNumber(postsRepository.findTopByOrderByNumberDesc().getNumber() + 1);
+//            posts.setNumber(postsRepository.findTopByOrderByNumberDesc().getNumber() + 1);
+//        }
 
         String fileImgHeader=StringUtils.cleanPath(postsDto.getImgHeader().getOriginalFilename());
         if(!fileImgHeader.equals("")) {
@@ -52,11 +66,11 @@ public class PostsService
             fileUploadService.saveFile("ImagesManager/ImgPosts/" + posts.getNumber(), fileImgHeader, postsDto.getImgHeader());
         }
 
-        if(postsDto.getItemPostsDto()!=null)
+        if(postsDto.getItemPost()!=null)
         {
             List<ItemPosts> items= new ArrayList<ItemPosts>();
             int index=0;
-            for (ItemPostsDto item: postsDto.getItemPostsDto())
+            for (ItemPostsDto item: postsDto.getItemPost())
             {
                 ItemPosts itemPosts=new ItemPosts();
                 itemPosts.setNumber(index);
@@ -76,7 +90,7 @@ public class PostsService
                 }
             }
 
-            posts.setItemPosts(items);
+            posts.setItemPost(items);
         }
         postsRepository.save(posts);
         return posts.getNumber();

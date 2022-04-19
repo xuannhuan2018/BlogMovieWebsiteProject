@@ -24,7 +24,7 @@ public class PostsDto
     private String title;
     private MultipartFile imgHeader;
     private String description;
-    private List<ItemPostsDto> itemPostsDto;
+    private List<ItemPostsDto> itemPost;
     private double IMDb;
     private double yourRating;
     private String created;

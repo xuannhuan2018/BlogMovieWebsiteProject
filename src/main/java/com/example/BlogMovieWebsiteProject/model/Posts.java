@@ -7,10 +7,7 @@ import lombok.Setter;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.stereotype.Indexed;
 
-import java.time.Instant;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -30,7 +27,7 @@ public class Posts
     private String title;
     private String imgHeader;
     private String description;
-    private List<ItemPosts> itemPosts;
+    private List<ItemPosts> itemPost;
     private double IMDb;
     private double yourRating;
     private String created;
