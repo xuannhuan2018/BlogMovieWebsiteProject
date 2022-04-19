@@ -1,5 +1,4 @@
 # Dự án Xây dựng Website Blog Review Phim
-![image](https://user-images.githubusercontent.com/88767208/162964986-3309ba22-6013-4106-bd9a-2863883e3060.png)
 ## **1. Thông tin dự án:**
 ```
 - Dự án cuối kỳ môn Search Engine của sinh viên trường Đại học Sư phạm Kỹ thuật Thành phố Hồ Chí Minh
@@ -31,5 +30,3 @@
 - Duyệt bài viết
 - Thống kê thông tin bài viết, thông tin người dùng
 ```
-## **Kế hoạch thực hiện**
-![image](https://user-images.githubusercontent.com/88767208/162966576-0ab58cb4-6389-43c2-99d6-db85292ce4fc.png)
