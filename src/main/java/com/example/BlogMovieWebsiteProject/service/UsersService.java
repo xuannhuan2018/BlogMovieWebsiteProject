@@ -5,40 +5,56 @@ import com.example.BlogMovieWebsiteProject.model.Roles;
 import com.example.BlogMovieWebsiteProject.repository.UsersRepository;
 import com.example.BlogMovieWebsiteProject.model.Users;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
-import org.elasticsearch.search.DocValueFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.example.BlogMovieWebsiteProject.dto.TopicDto;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
+
 import java.util.Date;
-import java.util.List;
-import java.text.ParseException;
-import java.util.Locale;
+
 
 @Service
 @AllArgsConstructor
 public class UsersService
 {
-    private final UsersRepository usersRepository;
+    @Autowired
+    private UsersRepository usersRepository;
 
-
-    private final ConvertService convertService;
-
-    public Users createAccount(UsersDto usersDto)
+    public Users createAccount(UsersDto usersDto, String username, String password, String email)
     {
+        //Set up username, password, email for usersDto
+        usersDto.setUsername(username);
+        usersDto.setPassword(password);
+        usersDto.setEmail(email);
+        //Get current time
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        //Initialize User object
         Users users = new Users();
         users.setId(usersDto.getId());
         users.setUsername(usersDto.getUsername());
         users.setPassword(usersDto.getPassword());
         users.setEmail(usersDto.getEmail());
-        users.setCreated(convertService.DateTimeToString());
-        users.setStatus(false);
+        users.setCreated(timestamp.toString());
+        users.setStatus(true);
         users.setRole(Roles.member);
-
         return usersRepository.save(users);
+    }
+
+    public boolean existByUsername(String username){
+        Users users = usersRepository.findUsersByUsername(username);
+        boolean exist;
+        exist = users != null;
+        return exist;
+    }
+
+    public boolean existByUsernameAndPassword(String username, String password){
+        Users users = usersRepository.findUsersByUsernameAndAndPassword(username, password);
+        boolean exist;
+        exist = users != null;
+        return exist;
+    }
+    public Users findUserByUsername(String username){
+        return usersRepository.findUsersByUsername(username);
     }
 }

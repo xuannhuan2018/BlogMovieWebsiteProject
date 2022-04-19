@@ -24,7 +24,6 @@ public class Users
 {
     @Id
     private String id;
-
     private String username;
     private String password;
     private String email;

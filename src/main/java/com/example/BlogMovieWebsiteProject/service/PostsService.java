@@ -25,7 +25,7 @@ public class PostsService
     private final PostsRepository postsRepository;
 
     private final FileUploadService fileUploadService;
-    private final ConvertService convertService;
+    //private final ConvertService convertService;
 
     public long createPosts (PostsDto postsDto, String username) throws IOException {
         Posts posts = new Posts();
@@ -36,7 +36,7 @@ public class PostsService
         posts.setDescription(postsDto.getDescription());
         posts.setIMDb(postsDto.getIMDb());
         posts.setYourRating(postsDto.getYourRating());
-        posts.setCreated(convertService.DateTimeToString());
+        //posts.setCreated(convertService.DateTimeToString());
         posts.setBrowser(false);
 
         if( postsRepository.findTopByOrderByNumberDesc()==null){

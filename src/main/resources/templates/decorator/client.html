@@ -49,10 +49,10 @@
                         <a class="nav-link" href="/post">Bài viết</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/post/new">Viết bài</a>
+                        <a class="nav-link" href="/post/new" th:if="${session.user}">Viết bài</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/post/my">Bài viết của bạn</a>
+                        <a class="nav-link" href="/post/my" th:if="${session.user}">Bài viết của bạn</a>
                     </li>
                     <li class="nav-item">
                         <div class="dropdown">
@@ -62,10 +62,11 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
                                  style="background-color: #f7f7f7">
-                                <a class="dropdown-item" data-toggle="modal" onclick="openLoginModal();">Đăng nhập</a>
+                                <a class="dropdown-item" data-toggle="modal" onclick="openLoginModal();" th:unless="${session.user}">Đăng nhập</a>
+                                <a class="dropdown-item" data-toggle="modal" onclick="openRegisterModal();" th:unless="${session.user}">Đăng ký</a>
 <!--                                <a class="dropdown-item" href="/signup">Đăng ký</a>-->
-                                <a class="dropdown-item" href="/user">Thông tin cá nhân</a>
-                                <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                <a class="dropdown-item" href="/user" th:if="${session.user}">Thông tin cá nhân</a>
+                                <a class="dropdown-item" th:href="@{/user/logout}" th:if="${session.user}">Đăng xuất</a>
                             </div>
                         </div>
                     </li>
@@ -92,7 +93,7 @@
             </div>
             <div class="col-lg-12">
                 <div class="copyright-text">
-                    <p>Copyright <script>document.write(new Date().getFullYear());</script> Travel Blog.</p>
+                    <p>Copyright <script>document.write(new Date().getFullYear());</script> Movie Blog.</p>
                 </div>
             </div>
         </div>
@@ -129,10 +130,10 @@
 <!--                        </div>-->
                         <div class="error"></div>
                         <div class="form loginBox">
-                            <form method="post" th:action="@{/home/check-login}" accept-charset="UTF-8">
-                                <input id="email" class="form-control" type="text" placeholder="Email" th:name="username">
-                                <input id="password" class="form-control" type="password" placeholder="Password" th:name="password">
-                                <div><b> <span style="color:#6dced5" th:text="${errorMessage}"></span></b></div>
+                            <form method="post" th:action="@{/user/check-login}" accept-charset="UTF-8">
+                                <input id="email" class="form-control" type="text" placeholder="Email" th:name="username" required>
+                                <input id="password" class="form-control" type="password" placeholder="Password" th:name="password" required>
+                                <div><b> <span style="color:#6dced5" th:text="${message}"></span></b></div>
                                 <input class="btn btn-default btn-login" type="submit" value="Login">
                             </form>
                         </div>
@@ -141,11 +142,13 @@
                 <div class="box">
                     <div class="content registerBox" style="display:none;">
                         <div class="form">
-                            <form method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
-                                <input id="emaill" class="form-control" type="text" placeholder="Email" name="email">
-                                <input id="passwordd" class="form-control" type="password" placeholder="Password" name="password">
-                                <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation">
-                                <input class="btn btn-default btn-register" type="button" value="Create account" name="commit">
+                            <form method="post" html="{:multipart=>true}" data-remote="true" th:action="@{/user/register}" accept-charset="UTF-8">
+                                <input id="username" class="form-control" type="text" placeholder="Username" th:name="username" required>
+                                <input id="passwordd" class="form-control" type="password" placeholder="Password" th:name="password" required>
+                                <input id="emaill" class="form-control" type="email" placeholder="Email" th:name="email" required>
+                                <br>
+                                <div><b> <span style="color:#6dced5" th:text="${alertRegister}"></span></b></div>
+                                <input class="btn btn-default btn-register" type="submit" value="Create account" name="commit">
                             </form>
                         </div>
                     </div>
@@ -166,12 +169,7 @@
     </div>
 </div>
 <!--End Login Modal-->
-<script th:if="${errorMessage}" type="text/javascript" th:inline="javascript">
-    $(document).ready(function(){
-        openLoginModal();
-    });
 
-</script>
 <script th:src="@{/assets/js/jquery-1.10.2.js}" type="text/javascript"></script>
 <script th:src="@{/assets/js/bootstrap.js}" type="text/javascript"></script>
 <script th:src="@{/assets/js/login-register.js}" type="text/javascript"></script>
@@ -199,6 +197,18 @@
         }
     }
 </script>
-
+<script type="text/javascript" th:inline="javascript">
+    if([[${message}]]){
+        alert([[${message}]])
+        $(document).ready(function (){
+            openLoginModal();
+        })
+    }
+    if([[${alertRegister}]]){
+        $(document).ready(function (){
+            openRegisterModal();
+        })
+    }
+</script>
 </body>
 </html>

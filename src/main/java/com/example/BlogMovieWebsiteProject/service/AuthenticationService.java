@@ -12,8 +12,8 @@ public class AuthenticationService
 {
     private final UsersRepository usersRepository;
 
-    public boolean checkLogin(UsersDto usersDto)
-    {
-        return usersRepository.existsByUsernameAndPassword(usersDto.getUsername(), usersDto.getPassword());
-    }
+//    public boolean checkLogin(UsersDto usersDto)
+//    {
+//        return usersRepository.existsByUsernameAndPassword(usersDto.getUsername(), usersDto.getPassword());
+//    }
 }

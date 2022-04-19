@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsersRepository extends ElasticsearchRepository<Users, String>
 {
-    boolean existsByUsernameAndPassword(String username, String password);
+    Users findUsersByUsernameAndAndPassword(String username, String password);
+    Users findUsersByUsername(String username);
 }
