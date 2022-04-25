@@ -2,6 +2,7 @@ package com.example.BlogMovieWebsiteProject.controller;
 
 import com.example.BlogMovieWebsiteProject.dto.PostsDto;
 import com.example.BlogMovieWebsiteProject.dto.UsersDto;
+import com.example.BlogMovieWebsiteProject.model.Posts;
 import com.example.BlogMovieWebsiteProject.model.Users;
 import com.example.BlogMovieWebsiteProject.service.PostsService;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping(path="/user/post")
@@ -28,6 +30,7 @@ public class PostsController
 
 
     @PostMapping("/add")
+    @ResponseBody
     public String createPost(@ModelAttribute("post") PostsDto postsDto, HttpSession session) throws IOException {
         Users user = (Users) session.getAttribute("user");
         String username = user.getUsername();
@@ -39,7 +42,15 @@ public class PostsController
         catch (IOException e){
             System.out.println(e.getMessage());
         }
-        return "/views/test";
+        return "Thêm thành công post" + number;
+    }
+
+    @GetMapping("/{username}/list")
+    public String viewListPostOfUser(@PathVariable(name = "username") String username,
+                                     Model model){
+        List<Posts> postsList = postsService.listPostByUsername(username);
+        model.addAttribute("listPostOfUser", postsList);
+        return "/views/user/post/list-my-post";
     }
 }
 

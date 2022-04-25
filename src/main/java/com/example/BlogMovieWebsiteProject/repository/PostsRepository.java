@@ -10,4 +10,5 @@ import java.util.List;
 public interface PostsRepository extends ElasticsearchRepository<Posts, String>
 {
     List<Posts> findAll();
+    List<Posts> findAllByUsername(String username);
 }

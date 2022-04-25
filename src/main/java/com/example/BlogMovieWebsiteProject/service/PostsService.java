@@ -20,8 +20,8 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class PostsService
-{
+public class PostsService {
+    @Autowired
     private final UsersRepository usersRepository;
 
     @Autowired
@@ -29,19 +29,17 @@ public class PostsService
 
     @Autowired
     private final FileUploadService fileUploadService;
-    //private final ConvertService convertService;
 
     public long createPosts (PostsDto postsDto, String username) throws IOException {
         Posts posts = new Posts();
         Date date = new Date();
-        Timestamp timestamp = new Timestamp(date.getTime());
         posts.setUsername(username);
         posts.setCategory(postsDto.getCategory());
         posts.setTitle(postsDto.getTitle());
         posts.setDescription(postsDto.getDescription());
         posts.setIMDb(postsDto.getIMDb());
         posts.setYourRating(postsDto.getYourRating());
-        posts.setCreated(timestamp.toString());
+        posts.setCreated(date.toString());
         posts.setBrowser(false);
 
         List<Posts> postsList = postsRepository.findAll();
@@ -51,15 +49,6 @@ public class PostsService
         else {
             posts.setNumber(postsList.size() + 1);
         }
-//        if( postsRepository.findTopByOrderByNumberDesc()==null){
-//        if(postsRepository.==null){
-//            posts.setNumber(0);
-//        }
-//        else {
-////            posts.setNumber(postsRepository.findTopByOrderByNumberDesc().getNumber() + 1);
-//            posts.setNumber(postsRepository.findTopByOrderByNumberDesc().getNumber() + 1);
-//        }
-
         String fileImgHeader=StringUtils.cleanPath(postsDto.getImgHeader().getOriginalFilename());
         if(!fileImgHeader.equals("")) {
             posts.setImgHeader("ImagesManager/ImgPosts/"+posts.getNumber() + "/" + fileImgHeader);
@@ -94,5 +83,9 @@ public class PostsService
         }
         postsRepository.save(posts);
         return posts.getNumber();
+    }
+
+    public List<Posts> listPostByUsername(String username){
+        return postsRepository.findAllByUsername(username);
     }
 }
