@@ -4,123 +4,127 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" th:href="@{/assets/css/select2.min.css}"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
 <!-- Banner Starts Here -->
 <div layout:fragment="~{content}">
-<div class="heading-page header-text">
-    <section class="page-heading">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-content">
-                        <h4>Thêm bài</h4>
-                        <h2>Let's be creative!</h2>
+    <div class="heading-page header-text">
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-content">
+                            <h4>Thêm bài</h4>
+                            <h2>Let's be creative!</h2>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 
-<!-- Banner Ends Here -->
+    <!-- Banner Ends Here -->
 
 
-<section class="contact-us">
-    <div class="container">
-        <div class="row">
+    <section class="contact-us">
+        <div class="container">
+            <div class="row">
 
-            <div class="col-lg-12">
-                <div class="down-contact">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <div class="sidebar-item contact-form">
-                                <div class="sidebar-heading">
-                                    <h2>Tạo bài viết</h2>
-                                </div>
-                                <div class="content">
-                                    <form th:action="@{/user/post/add}" method="post"
-                                          enctype="multipart/form-data" th:object="${post}">
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12">
-                                                <label for="title">Chọn ảnh nổi bật:</label>
-                                                <input type="file" id="Headerimg" th:field="*{imgHeader}"
-                                                       accept="image/*" onchange="displayImg(event)"
-                                                       placeholder="Thêm ảnh nổi bật">
-                                                <img id="HeaderimgDisplay" width="50%"/>
-                                            </div>
-                                            <div class="col-md-12 col-sm-12">
-                                                <fieldset>
-                                                    <label for="title">Tiêu đề:</label>
-                                                    <input type="text" id="title"
-                                                           placeholder="Nhập tiêu đề" required=""
-                                                           style="text-transform: none" th:field="*{title}">
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-12 col-sm-12">
-                                                <!--                                                    <fieldset>-->
-                                                <!--                                                        <label for="topic">Chủ đề:</label>-->
-                                                <!--                                                        <input type="text" th:field="*{category}"  id="topic" placeholder="Nhập tiêu đề" required="" style="text-transform: none">-->
-                                                <!--                                                    </fieldset>-->
-                                                <fieldset>
-                                                    <div class=”input-group”>
-                                                        <label class=”input-group-text”><b>Chủ đề:</b></label>
-                                                        <label>
-                                                            <select class=”custom-select” th:field="*{category}">
-                                                                <option th:name="category" th:value="'Con người'">Con
-                                                                    người
-                                                                </option>
-                                                                <option th:name="category" th:value="'Văn hóa'">Văn
-                                                                    hóa
-                                                                </option>
-                                                                <option th:name="category" th:value="'Ăn uống'">Ăn
-                                                                    uống
-                                                                </option>
-                                                                <option th:name="category" th:value="'Nơi ở'">Nơi ở
-                                                                </option>
-                                                            </select>
-                                                        </label>
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-                                            <div class="col-md-12 col-sm-12">
-                                                <fieldset>
-                                                    <label for="description">Mô tả:</label>
-                                                    <textarea rows="10" type="text"
-                                                              id="description" placeholder="Mô tả ở đây nhé!"
-                                                              required="" style="text-transform: none" th:field="*{description}"></textarea>
-                                                </fieldset>
+                <div class="col-lg-12">
+                    <div class="down-contact">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="sidebar-item contact-form">
+                                    <div class="sidebar-heading">
+                                        <h2>Tạo bài viết</h2>
+                                    </div>
+                                    <div class="content">
+                                        <form th:action="@{/user/post/add}" method="post"
+                                              enctype="multipart/form-data" th:object="${post}">
+                                            <div class="row">
+                                                <div class="col-md-12 col-sm-12">
+                                                    <label for="title">Chọn ảnh nổi bật:</label>
+                                                    <input type="file" id="Headerimg" th:field="*{imgHeader}"
+                                                           accept="image/*" onchange="displayImg(event)"
+                                                           placeholder="Thêm ảnh nổi bật">
+                                                    <img id="HeaderimgDisplay" width="50%"/>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset>
+                                                        <label for="title">Tiêu đề:</label>
+                                                        <input type="text" id="title"
+                                                               placeholder="Nhập tiêu đề" required=""
+                                                               style="text-transform: none" th:field="*{title}">
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <!--                                                    <fieldset>-->
+                                                    <!--                                                        <label for="topic">Chủ đề:</label>-->
+                                                    <!--                                                        <input type="text" th:field="*{category}"  id="topic" placeholder="Nhập tiêu đề" required="" style="text-transform: none">-->
+                                                    <!--                                                    </fieldset>-->
+                                                    <fieldset>
+                                                        <div class=”input-group”>
+                                                            <label class=”input-group-text” for="state">Chủ đề:</label>
+                                                            <div class="form-group">
+                                                                <select multiple="" id="state" name="state"
+                                                                        class="select2" data-placeholder="Choose..."
+                                                                        required>
+                                                                    <option value="">&nbsp;</option>
+                                                                    <option value="AL">Con người</option>
+                                                                    <option value="AK">Xã hội</option>
+                                                                    <option value="AZ">C</option>
+                                                                    <option value="D">D</option>
+                                                                    <option value="E">E</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset>
+                                                        <label for="description">Mô tả:</label>
+                                                        <textarea rows="10" type="text"
+                                                                  id="description" placeholder="Mô tả ở đây nhé!"
+                                                                  required="" style="text-transform: none"
+                                                                  th:field="*{description}"></textarea>
+                                                    </fieldset>
 
-                                            </div>
+                                                </div>
 
-                                            <div id="ItemList" class="col-lg-12">
+                                                <div id="ItemList" class="col-lg-12">
 
-                                            </div>
+                                                </div>
 
-                                            <div class="col-lg-12">
-                                                <fieldset>
-                                                    <button class="btn btn-secondary" type="button" onclick="addText()"
-                                                            style="background-color: #5a6268;font-size: 10px">Chèn nội
-                                                        dung
+                                                <div class="col-lg-12">
+                                                    <fieldset>
+                                                        <button class="btn btn-secondary" type="button"
+                                                                onclick="addText()"
+                                                                style="background-color: #5a6268;font-size: 10px">Chèn
+                                                            nội
+                                                            dung
+                                                        </button>
+                                                        &emsp;<button class="btn btn-secondary" type="button"
+                                                                      onclick="addImage()"
+                                                                      style="background-color: #5a6268;font-size: 10px">
+                                                        Chèn
+                                                        hình
                                                     </button>
-                                                    &emsp;<button class="btn btn-secondary" type="button"
-                                                                  onclick="addImage()"
-                                                                  style="background-color: #5a6268;font-size: 10px">Chèn
-                                                    hình
-                                                </button>
-                                                </fieldset>
+                                                    </fieldset>
+                                                </div>
+                                                <br><br><br>
+                                                <div class="col-lg-12">
+                                                    <fieldset>
+                                                        <button type="submit" id="form-submit" class="main-button">Thêm
+                                                        </button>
+                                                        &emsp;
+                                                    </fieldset>
+                                                </div>
                                             </div>
-                                            <br><br><br>
-                                            <div class="col-lg-12">
-                                                <fieldset>
-                                                    <button type="submit" id="form-submit" class="main-button">Thêm
-                                                    </button>
-                                                    &emsp;
-                                                </fieldset>
-                                            </div>
-                                        </div>
-                                    </form>
+                                        </form>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -128,54 +132,73 @@
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<script>
-    var index=0;
-    function addText() {
-        var node=document.createElement("div");
-        node.innerHTML=`<div id="itemPostList[`+index+`]"  >
+    </section>
+    <script th:src="@{/assets/js/select2.min.js}" type="text/javascript"></script>
+    <script th:src="@{/js/bootstrap.min.js}" type="text/javascript"></script>
+    <script type="text/javascript">
+        jQuery(function ($) {
+            //select2
+            $('.select2').css('width', '200px').select2({allowClear: true})
+            $('#select2-multiple-style .btn').on('click', function (e) {
+                var target = $(this).find('input[type=radio]');
+                var which = parseInt(target.val());
+                if (which == 2) $('.select2').addClass('tag-input-style');
+                else $('.select2').removeClass('tag-input-style');
+            });
+            //in ajax mode, remove remaining elements before leaving page
+            $(document).one('ajaxloadstart.page', function (e) {
+                $('[class*=select2]').remove();
+            });
+
+        });
+
+        function addText() {
+            var node = document.createElement("div");
+            node.innerHTML = `<div id="itemPostList[` + index + `]"  >
                             <table class="col-lg-12">
                             <tr>
                                 <td>
-                                    <textarea name="itemPost[`+index+`].text" style="text-transform: none"> </textarea>
-                                    <input name="itemPost[`+index+`].type" type=hidden value="TEXT">
-                                    <input name="itemPost[`+index+`].number" type=hidden value=`+index+`>
+                                    <textarea name="itemPost[` + index + `].text" style="text-transform: none"> </textarea>
+                                    <input name="itemPost[` + index + `].type" type=hidden value="TEXT">
+                                    <input name="itemPost[` + index + `].number" type=hidden value=` + index + `>
                                 </td>
                                 <td style="vertical-align:top">
-                                    <button class="btn btn-secondary" type="button" value="itemPostList[`+index+`]" onclick="deleteItem(event)" style="background-color: black!important;">X</button>
+                                    <button class="btn btn-secondary" type="button" value="itemPostList[` + index + `]" onclick="deleteItem(event)" style="background-color: black!important;">X</button>
                                 </td>
                             </tr>
                             </table>
                         </div>`;
-        document.getElementById("ItemList").appendChild(node);
-        index++;
-    }
-    function addImage() {
-        var node=document.createElement("div");
-        node.innerHTML=`<div id="itemPost[`+index+`]" >
+            document.getElementById("ItemList").appendChild(node);
+            index++;
+        }
+
+        function addImage() {
+            var node = document.createElement("div");
+            node.innerHTML = `<div id="itemPost[` + index + `]" >
                             <table class="col-lg-12">
                             <tr>
                                 <td align="left">
-                                    <img id="itemPost[`+index+`].imgDisplay"  width="100%"/>
-                                    <input type="file" id="itemPost[`+index+`].img" name="itemPost[`+index+`].img"  accept="image/*" onchange="displayImg(event)" placeholder="Thêm hình ảnh" >
-                                    <input name="itemPost[`+index+`].type" type=hidden value="IMG">
-                                    <input name="itemPost[`+index+`].number" type=hidden value=`+index+`>
+                                    <img id="itemPost[` + index + `].imgDisplay"  width="100%"/>
+                                    <input type="file" id="itemPost[` + index + `].img" name="itemPost[` + index + `].img"  accept="image/*" onchange="displayImg(event)" placeholder="Thêm hình ảnh" >
+                                    <input name="itemPost[` + index + `].type" type=hidden value="IMG">
+                                    <input name="itemPost[` + index + `].number" type=hidden value=` + index + `>
                                  </td>
                                  <td>
-                                    <button class="btn btn-secondary btn-lg" type="button" value="itemPost[`+index+`]" onclick="deleteItem(event)" style="background-color:black!important;">X</button>
+                                    <button class="btn btn-secondary btn-lg" type="button" value="itemPost[` + index + `]" onclick="deleteItem(event)" style="background-color:black!important;">X</button>
                                 </td>
                         </div>`;
-        document.getElementById("ItemList").appendChild(node);
-        index++;
-    }
-    function displayImg(event){
-        document.getElementById(event.target.id+'Display').src=(window.URL ? URL : webkitURL).createObjectURL(event.target.files[0]);
-    }
-    function deleteItem(event){
-        document.getElementById(event.target.value).remove();
-    }
-</script>
+            document.getElementById("ItemList").appendChild(node);
+            index++;
+        }
+
+        function displayImg(event) {
+            document.getElementById(event.target.id + 'Display').src = (window.URL ? URL : webkitURL).createObjectURL(event.target.files[0]);
+        }
+
+        function deleteItem(event) {
+            document.getElementById(event.target.value).remove();
+        }
+    </script>
 </div>
 </body>
 </html>
