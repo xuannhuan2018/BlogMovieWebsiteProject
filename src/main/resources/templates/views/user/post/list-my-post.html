@@ -59,9 +59,9 @@
                                             <!--                    <li><a href="#">12 Comments</a></li>-->
                                         </ul>
                                         <p th:if="${!item.browser}"
-                                           th:utext="${#strings.abbreviate(item.description,100)}"></p>
+                                           th:text="${#strings.abbreviate(item.description,100)}"></p>
                                         <p th:if="${item.browser}"
-                                           th:utext="${#strings.abbreviate(item.description,150)}"></p>
+                                           th:text="${#strings.abbreviate(item.description,150)}"></p>
                                         <div class="post-options">
                                             <div class="row">
                                                 <div class="col-lg-12">

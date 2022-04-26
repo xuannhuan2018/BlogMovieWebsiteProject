@@ -39,12 +39,12 @@ public class PostsController
         long number = 0;
         try {
             number = postsService.createPosts(postsDto, username);
-            System.out.println(number);
+            System.out.println("Thêm thành công post " + number);
         }
         catch (IOException e){
             System.out.println(e.getMessage());
         }
-        return "Thêm thành công post" + number;
+        return "Thêm thành công post " + number;
     }
 
     @GetMapping("/{username}/list")
@@ -55,11 +55,12 @@ public class PostsController
         return "/views/user/post/list-my-post";
     }
 
-//    @GetMapping("/{postId}")
-//    public String viewPostDetail(@PathVariable(name = "postId")String postId,
-//                                 Model model){
-//
-//    }
+    @GetMapping("/{postId}")
+    public String viewPostDetail(@PathVariable(name = "postId")String postId,
+                                 Model model){
+        model.addAttribute("postDetail", postsService.viewDetailPost(postId));
+        return "/views/user/post/view-detail-post";
+    }
 
 }
 

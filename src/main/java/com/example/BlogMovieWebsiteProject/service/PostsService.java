@@ -59,13 +59,13 @@ public class PostsService {
 
         if(postsDto.getItemPost()!=null)
         {
-            List<ItemPosts> items= new ArrayList<ItemPosts>();
+            List<ItemPosts> items= new ArrayList<>();
             int index=0;
             for (ItemPostsDto item: postsDto.getItemPost())
             {
                 ItemPosts itemPosts=new ItemPosts();
                 itemPosts.setNumber(index);
-                itemPosts.setType(ItemType.IMG);
+                itemPosts.setType(item.getType());
                 itemPosts.setText(item.getText());
                 if(item.getType()== ItemType.IMG){
                     String filename=StringUtils.cleanPath(item.getImg().getOriginalFilename());
