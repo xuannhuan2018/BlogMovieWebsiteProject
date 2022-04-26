@@ -69,7 +69,7 @@
                                                         <li><i class="fa fa-tags"></i></li>
                                                         <li>
                                                             <th:block th:each="category :${item.category}">
-                                                                <a th:href="@{/post/{category}/list(category=${category})}">[[${category}]]&nbsp;</a>
+                                                                <a style="background-color: #f48840;border-color: #f48840;color: #fff" th:href="@{/post/{category}/list(category=${category})}">[[${category}]]&nbsp;</a>
                                                             </th:block>
                                                         </li>
                                                     </ul>

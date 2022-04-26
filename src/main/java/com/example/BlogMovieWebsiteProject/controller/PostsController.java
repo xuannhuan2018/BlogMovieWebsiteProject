@@ -1,5 +1,7 @@
 package com.example.BlogMovieWebsiteProject.controller;
 
+import com.example.BlogMovieWebsiteProject.dto.ListPostDto;
+import com.example.BlogMovieWebsiteProject.dto.PostDetailDto;
 import com.example.BlogMovieWebsiteProject.dto.PostsDto;
 import com.example.BlogMovieWebsiteProject.dto.UsersDto;
 import com.example.BlogMovieWebsiteProject.model.Posts;
@@ -48,9 +50,16 @@ public class PostsController
     @GetMapping("/{username}/list")
     public String viewListPostOfUser(@PathVariable(name = "username") String username,
                                      Model model){
-        List<Posts> postsList = postsService.listPostByUsername(username);
+        List<PostDetailDto> postsList = postsService.listPostByUsername(username);
         model.addAttribute("listPostOfUser", postsList);
         return "/views/user/post/list-my-post";
     }
+
+//    @GetMapping("/{postId}")
+//    public String viewPostDetail(@PathVariable(name = "postId")String postId,
+//                                 Model model){
+//
+//    }
+
 }
 

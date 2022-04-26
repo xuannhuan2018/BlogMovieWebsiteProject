@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "postsmovie")
+@Document(indexName = "posts-movie")
 public class Posts
 {
     @Id
@@ -23,7 +23,7 @@ public class Posts
     private long number;
 
     private String username;
-    private String category;
+    private List<String> category;
     private String title;
     private String imgHeader;
     private String description;

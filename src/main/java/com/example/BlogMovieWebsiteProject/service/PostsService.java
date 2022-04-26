@@ -1,6 +1,8 @@
 package com.example.BlogMovieWebsiteProject.service;
 
 import com.example.BlogMovieWebsiteProject.dto.ItemPostsDto;
+import com.example.BlogMovieWebsiteProject.dto.ListPostDto;
+import com.example.BlogMovieWebsiteProject.dto.PostDetailDto;
 import com.example.BlogMovieWebsiteProject.dto.PostsDto;
 import com.example.BlogMovieWebsiteProject.model.ItemPosts;
 import com.example.BlogMovieWebsiteProject.model.ItemType;
@@ -13,10 +15,10 @@ import org.springframework.util.StringUtils;
 import com.example.BlogMovieWebsiteProject.repository.PostsRepository;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -85,7 +87,35 @@ public class PostsService {
         return posts.getNumber();
     }
 
-    public List<Posts> listPostByUsername(String username){
-        return postsRepository.findAllByUsername(username);
+    public List<PostDetailDto> listPostByUsername(String username){
+        List<Posts> postsList = postsRepository.findAllByUsername(username);
+        List<PostDetailDto> postDtoList = new ArrayList<>();
+        for(Posts posts:postsList) {
+            PostDetailDto postDto = this.setPostModelToPostDto(posts);
+            postDtoList.add(postDto);
+        }
+        return postDtoList;
+    }
+
+    public PostDetailDto viewDetailPost(String postId){
+        Optional<Posts> opPosts = postsRepository.findById(postId);
+        Posts posts = opPosts.get();
+        PostDetailDto postDto = this.setPostModelToPostDto(posts);
+        return postDto;
+    }
+    public PostDetailDto setPostModelToPostDto(Posts posts){
+        PostDetailDto postDetailDto = new PostDetailDto();
+        postDetailDto.setId(posts.getId());
+        postDetailDto.setUsername(posts.getUsername());
+        postDetailDto.setCategory(posts.getCategory());
+        postDetailDto.setTitle(posts.getTitle());
+        postDetailDto.setImgHeader(posts.getImgHeader());
+        postDetailDto.setDescription(posts.getDescription());
+        postDetailDto.setItemPost(posts.getItemPost());
+        postDetailDto.setIMDb(posts.getNumber());
+        postDetailDto.setYourRating(posts.getYourRating());
+        postDetailDto.setCreated(posts.getCreated());
+        postDetailDto.setBrowser(posts.isBrowser());
+        return postDetailDto;
     }
 }

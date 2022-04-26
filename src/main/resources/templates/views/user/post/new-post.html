@@ -66,17 +66,17 @@
                                                     <!--                                                    </fieldset>-->
                                                     <fieldset>
                                                         <div class=”input-group”>
-                                                            <label class=”input-group-text” for="state">Chủ đề:</label>
+                                                            <label class=”input-group-text” for="category">Chủ đề:</label>
                                                             <div class="form-group">
-                                                                <select multiple="" id="state" name="state"
-                                                                        class="select2" data-placeholder="Choose..."
+                                                                <select multiple="" id="category" th:field="*{category}"
+                                                                        class="select2" data-placeholder="   Click to choose..."
                                                                         required>
                                                                     <option value="">&nbsp;</option>
-                                                                    <option value="AL">Con người</option>
-                                                                    <option value="AK">Xã hội</option>
-                                                                    <option value="AZ">C</option>
-                                                                    <option value="D">D</option>
-                                                                    <option value="E">E</option>
+                                                                    <option th:name="category" value="AL">Con người</option>
+                                                                    <option th:name="category" value="AK">Xã hội</option>
+                                                                    <option th:name="category" value="AZ">C</option>
+                                                                    <option th:name="category" value="D">D</option>
+                                                                    <option th:name="category" value="E">E</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -151,7 +151,7 @@
             });
 
         });
-
+        var index = 0;
         function addText() {
             var node = document.createElement("div");
             node.innerHTML = `<div id="itemPostList[` + index + `]"  >
