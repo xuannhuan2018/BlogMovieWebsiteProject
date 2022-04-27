@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/user}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!-- Page Content -->
+<div layout:fragment="~{content}">
+    <div class="heading-page header-text">
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-content">
+                            <h4>Chi tiết bài viết</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="blog-posts grid-system">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="all-blog-posts">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div>
+                                    <p th:if="${!postDetail.browser}">Bài viết này đang chờ được duyệt</p>
+                                </div>
+                                <div class="blog-post">
+                                    <div class="blog-thumb">
+                                        <img th:src="@{'/'+${postDetail.imgHeader}}" width="100%">
+                                    </div>
+                                    <div class="down-content">
+                                        <a href="#"><h4>[[${postDetail.title}]]</h4></a>
+                                        <ul class="post-info">
+                                            <th:block th:each="category :${postDetail.category}">
+                                                <a style="background-color: #f48840;border-color: #f48840;color: #fff"
+                                                   th:href="@{/post/{category}/list(category=${category})}">[[${category}]]&nbsp;</a>
+                                            </th:block>
+                                        </ul>
+                                        <ul class="post-info">
+                                            <li><a href="#">[[${postDetail.username}]]</a></li>
+                                            <li>[[${postDetail.created}]]</li>
+                                        </ul>
+                                        <!--                                                                            <div>-->
+                                        <!--                                                                                <p>[[${postDetail.description}]]</p>-->
+                                        <!--                                                                            </div>-->
+                                        <div th:each="item: ${postDetail.itemPost}">
+                                            <div th:if="${#strings.toString(item.getType()) == 'TEXT'}">
+                                                <p style="white-space: pre-line;" th:utext="${item.text}">
+                                                </p>
+                                            </div>
+                                            <div th:if="${#strings.toString(item.getType()) == 'IMG'}">
+                                                <img th:src="@{'/'+${item.text}}" width="100%">
+                                            </div>
+                                        </div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--  <div class="col-lg-12">
+                                  <div class="sidebar-item comments">
+                                      <div class="sidebar-heading">
+                                          <h2>4 comments</h2>
+                                      </div>
+                                      <div class="content">
+                                          <ul>
+                                              <li>
+                                                  <div class="right-content">
+                                                      <h4>Charles Kate<span>May 16, 2020</span></h4>
+                                                      <p>Fusce ornare mollis eros. Duis et diam vitae justo fringilla condimentum eu quis leo. Vestibulum id turpis porttitor sapien facilisis scelerisque. Curabitur a nisl eu lacus convallis eleifend posuere id tellus.</p>
+                                                  </div>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-lg-12">
+                                  <div class="sidebar-item submit-comment">
+                                      <div class="sidebar-heading">
+                                          <h2>Your comment</h2>
+                                      </div>
+                                      <div class="content">
+                                          <form id="comment" action="#" method="post">
+                                              <div class="row">
+                                                  <div class="col-lg-12">
+                                                      <fieldset>
+                                                          <textarea name="message" rows="6" id="message" placeholder="Type your comment" required=""></textarea>
+                                                      </fieldset>
+                                                  </div>
+                                                  <div class="col-lg-12">
+                                                      <fieldset>
+                                                          <button type="submit" id="form-submit" class="main-button">Submit</button>
+                                                      </fieldset>
+                                                  </div>
+                                              </div>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>-->
+                            <!--                    </div>-->
+                            <!--                </div>-->
+                        </div>
+                        <!--      <div class="col-lg-4">
+                                  <div class="sidebar">
+                                      <div class="row">
+                                          <div class="col-lg-12">
+                                              <div class="sidebar-item search">
+                                                  <form id="search_form" name="gs" method="GET" action="#">
+                                                      <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
+                                                  </form>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-12">
+                                              <div class="sidebar-item recent-posts">
+                                                  <div class="sidebar-heading">
+                                                      <h2>Recent Posts</h2>
+                                                  </div>
+                                                  <div class="content">
+                                                      <ul>
+                                                          <li><a href="chitietbaiviet.html">
+                                                              <h5>Vestibulum id turpis porttitor sapien facilisis scelerisque</h5>
+                                                              <span>May 31, 2020</span>
+                                                          </a></li>
+                                                          <li><a href="chitietbaiviet.html">
+                                                              <h5>Suspendisse et metus nec libero ultrices varius eget in risus</h5>
+                                                              <span>May 28, 2020</span>
+                                                          </a></li>
+                                                          <li><a href="chitietbaiviet.html">
+                                                              <h5>Swag hella echo park leggings, shaman cornhole ethical coloring</h5>
+                                                              <span>May 14, 2020</span>
+                                                          </a></li>
+                                                      </ul>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-12">
+                                              <div class="sidebar-item categories">
+                                                  <div class="sidebar-heading">
+                                                      <h2>Categories</h2>
+                                                  </div>
+                                                  <div class="content">
+                                                      <ul>
+                                                          <li><a href="#">- Nature Lifestyle</a></li>
+                                                          <li><a href="#">- Awesome Layouts</a></li>
+                                                          <li><a href="#">- Creative Ideas</a></li>
+                                                          <li><a href="#">- Responsive Templates</a></li>
+                                                          <li><a href="#">- HTML5 / CSS3 Templates</a></li>
+                                                          <li><a href="#">- Creative &amp; Unique</a></li>
+                                                      </ul>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="col-lg-12">
+                                              <div class="sidebar-item tags">
+                                                  <div class="sidebar-heading">
+                                                      <h2>Tag Clouds</h2>
+                                                  </div>
+                                                  <div class="content">
+                                                      <ul>
+                                                          <li><a href="#">Lifestyle</a></li>
+                                                          <li><a href="#">Creative</a></li>
+                                                          <li><a href="#">HTML5</a></li>
+                                                          <li><a href="#">Inspiration</a></li>
+                                                          <li><a href="#">Motivation</a></li>
+                                                          <li><a href="#">PSD</a></li>
+                                                          <li><a href="#">Responsive</a></li>
+                                                      </ul>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                    </div>-->
+                    </div>
+    </section>
+</div>
+
+</body>
+</html>
