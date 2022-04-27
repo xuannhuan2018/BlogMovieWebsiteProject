@@ -35,7 +35,7 @@ public class PostsService {
     @Autowired
     private final FileUploadService fileUploadService;
 
-    public long createPosts (PostsDto postsDto, String username) throws IOException {
+    public String createPosts (PostsDto postsDto, String username) throws IOException {
         Posts posts = new Posts();
         Date date = new Date();
         posts.setUsername(username);
@@ -87,7 +87,7 @@ public class PostsService {
             posts.setItemPost(items);
         }
         postsRepository.save(posts);
-        return posts.getNumber();
+        return posts.getId();
     }
 
     public List<PostDetailDto> listPostByUsername(String username){

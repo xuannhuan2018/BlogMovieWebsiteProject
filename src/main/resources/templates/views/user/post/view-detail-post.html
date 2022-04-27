@@ -54,6 +54,7 @@
                                                 </p>
                                             </div>
                                             <div th:if="${#strings.toString(item.getType()) == 'IMG'}">
+                                                <br>
                                                 <img th:src="@{'/'+${item.text}}" width="100%">
                                             </div>
                                         </div>
