@@ -18,10 +18,7 @@ public class HomeService {
     public List<PostDetailDto> listPostInHome(){
         List<PostDetailDto> postDetailDtoList = new ArrayList<>();
         List<Posts> postsList = postsRepository.findAllByBrowserOrderByCreatedDesc(true);
-        if(postsList == null){
-            System.out.println("Chưa có bài nào được duyệt");
-        }
-        else {
+        if(postsList.size()!=0){
             for (int i = 0; i < 3; i++) {
                 Posts posts = postsList.get(i);
                 PostDetailDto postDetailDto = new PostDetailDto();
