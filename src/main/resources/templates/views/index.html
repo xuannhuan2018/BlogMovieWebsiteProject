@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{decorator/client}">
+      layout:decorate="~{decorator/user}" xmlns:th="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -15,22 +15,20 @@
                 <div class="col-lg-8">
                     <div class="all-blog-posts">
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-12" th:each="post :${listPostInHome}">
                                 <div class="blog-post">
                                     <div class="blog-thumb">
-                                        <img width="510px" height="365px" alt="">
+                                        <a th:href="@{'/post/'+${post.Id}}"><img width="510px" height="365px" th:src="@{'/'+${post.imgHeader}}"></a>
                                     </div>
                                     <div class="down-content">
                                         <span></span>
-                                        <a><h4>(Tựa
-                                            đề)</h4></a>
+                                        <a th:href="@{'/post/'+${post.Id}}"><h4>[[${post.title}]]</h4></a>
                                         <ul class="post-info">
-                                            <li><a href="#">(Người đăng?)</a></li>
-                                            <li><a href="#">(Ngày
-                                                đăng?)</a></li>
+                                            <li><a href="#">[[${post.username}]]</a></li>
+                                            <li>[[${post.created}]]</li>
 
                                         </ul>
-                                        <p> (Tóm tắt mô tả)</p>
+                                        <p th:text="${#strings.abbreviate(post.description,270)}"></p>
                                         <div class="post-options">
                                             <div class="row">
                                                 <div class="col-6">
@@ -59,9 +57,9 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="sidebar-item search">
-                                    <!--                                <form id="search_form" name="gs" method="GET" action="#">-->
-                                    <!--                                    <input type="text" name="q" class="searchText" placeholder="Tìm kiếm" autocomplete="on">-->
-                                    <!--                                </form>-->
+                                                                    <form id="search_form" name="gs" method="GET" action="#">
+                                                                        <input type="text" name="q" class="searchText" placeholder="Tìm kiếm" autocomplete="on">
+                                                                    </form>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -87,14 +85,9 @@
                                     </div>
                                     <div class="content">
                                         <ul>
-                                            <li><a th:href="@{/post/{category}/list(category='Con người')}"><h5>- Con
-                                                người</h5></a></li>
-                                            <li><a th:href="@{/post/{category}/list(category='Văn hóa')}"><h5>- Văn
-                                                hóa </h5></a></li>
-                                            <li><a th:href="@{/post/{category}/list(category='Ăn uống')}"><h5>- Ăn
-                                                uống</h5></a></li>
-                                            <li><a th:href="@{/post/{category}/list(category='Nơi ở')}"><h5>- Nơi
-                                                ở </h5></a></li>
+                                            <th:block th:each="category:${listCategory}">
+                                                <li><a href="#">- [[${category}]]</a></li>
+                                            </th:block>
                                         </ul>
                                     </div>
                                 </div>

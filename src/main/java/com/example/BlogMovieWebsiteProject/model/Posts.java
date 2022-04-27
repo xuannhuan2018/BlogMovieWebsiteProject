@@ -1,13 +1,18 @@
 package com.example.BlogMovieWebsiteProject.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -30,6 +35,9 @@ public class Posts
     private List<ItemPosts> itemPost;
     private double IMDb;
     private double yourRating;
-    private String created;
+
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date created;
+
     private boolean browser;
 }

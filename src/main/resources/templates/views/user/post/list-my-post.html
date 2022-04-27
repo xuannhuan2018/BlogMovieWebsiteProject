@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{decorator/client}">
+      layout:decorate="~{decorator/user}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -51,11 +51,11 @@
                                                                                       width="345px" height="317px"></a>
                                     </div>
                                     <div class="down-content">
-                                        <a th:href="@{'/user/post/'+${item.Id}}"><h4>[[${item.title}]]</h4></a> <span
-                                            th:if="${!item.browser}">(Chưa được duyệt)</span>
+                                        <a th:href="@{'/user/post/'+${item.Id}}"><h4>[[${item.title}]]</h4></a> <h6
+                                            th:if="${!item.browser}">(Chưa được duyệt)</h6>
                                         <ul class="post-info">
                                             <li><a href="#" th:utext="${item.username}">Admin</a></li>
-                                            <li><a href="#">[[${item.created}]]</a></li>
+                                            <li>[[${item.created}]]</li>
                                             <!--                    <li><a href="#">12 Comments</a></li>-->
                                         </ul>
                                         <p th:if="${!item.browser}"
@@ -93,6 +93,9 @@
             </div>
         </div>
     </section>
+    <script type="text/javascript" th:inline="javascript" th:unless="${session.user}">
+        window.location.assign("/");
+    </script>
 </div>
 </body>
 </html>

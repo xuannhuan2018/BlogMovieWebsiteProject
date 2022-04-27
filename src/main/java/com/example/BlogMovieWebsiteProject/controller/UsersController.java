@@ -17,10 +17,10 @@ import javax.servlet.http.HttpSession;
 public class UsersController
 {
     @Autowired
-    public UsersService usersService;
+    private UsersService usersService;
 
     @Autowired
-    public AuthenticationService authenticationService;
+    private AuthenticationService authenticationService;
 
     @PostMapping("/register")
     public String signUpUser(@RequestParam(value = "username", required = false) String username,

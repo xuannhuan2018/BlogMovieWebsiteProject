@@ -1,7 +1,6 @@
 package com.example.BlogMovieWebsiteProject.service;
 
 import com.example.BlogMovieWebsiteProject.dto.ItemPostsDto;
-import com.example.BlogMovieWebsiteProject.dto.ListPostDto;
 import com.example.BlogMovieWebsiteProject.dto.PostDetailDto;
 import com.example.BlogMovieWebsiteProject.dto.PostsDto;
 import com.example.BlogMovieWebsiteProject.model.ItemPosts;
@@ -10,11 +9,15 @@ import com.example.BlogMovieWebsiteProject.model.Posts;
 import com.example.BlogMovieWebsiteProject.repository.UsersRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import com.example.BlogMovieWebsiteProject.repository.PostsRepository;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +44,7 @@ public class PostsService {
         posts.setDescription(postsDto.getDescription());
         posts.setIMDb(postsDto.getIMDb());
         posts.setYourRating(postsDto.getYourRating());
-        posts.setCreated(date.toString());
+        posts.setCreated(date);
         posts.setBrowser(false);
 
         List<Posts> postsList = postsRepository.findAll();

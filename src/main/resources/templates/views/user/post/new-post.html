@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{decorator/client}">
+      layout:decorate="~{decorator/user}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/assets/css/select2.min.css}"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
 </head>
 <body>
 <!-- Banner Starts Here -->
@@ -72,11 +71,9 @@
                                                                         class="select2" data-placeholder="   Click to choose..."
                                                                         required>
                                                                     <option value="">&nbsp;</option>
-                                                                    <option th:name="category" value="AL">Con người</option>
-                                                                    <option th:name="category" value="AK">Xã hội</option>
-                                                                    <option th:name="category" value="AZ">C</option>
-                                                                    <option th:name="category" value="D">D</option>
-                                                                    <option th:name="category" value="E">E</option>
+                                                                    <th:block th:each="category:${listCategory}">
+                                                                        <option th:name="category" th:value="${category}"><a href="#">[[${category}]]</a></option>
+                                                                    </th:block>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -145,7 +142,6 @@
                 if (which == 2) $('.select2').addClass('tag-input-style');
                 else $('.select2').removeClass('tag-input-style');
             });
-            //in ajax mode, remove remaining elements before leaving page
             $(document).one('ajaxloadstart.page', function (e) {
                 $('[class*=select2]').remove();
             });
@@ -178,7 +174,7 @@
                             <table class="col-lg-12">
                             <tr>
                                 <td align="left">
-                                    <img id="itemPost[` + index + `].imgDisplay"  width="100%"/>
+                                    <img id="itemPost[` + index + `].imgDisplay"  width="80%"/>
                                     <input type="file" id="itemPost[` + index + `].img" name="itemPost[` + index + `].img"  accept="image/*" onchange="displayImg(event)" placeholder="Thêm hình ảnh" >
                                     <input name="itemPost[` + index + `].type" type=hidden value="IMG">
                                     <input name="itemPost[` + index + `].number" type=hidden value=` + index + `>
@@ -198,6 +194,9 @@
         function deleteItem(event) {
             document.getElementById(event.target.value).remove();
         }
+    </script>
+    <script type="text/javascript" th:inline="javascript" th:unless="${session.user}">
+        window.location.assign("/");
     </script>
 </div>
 </body>

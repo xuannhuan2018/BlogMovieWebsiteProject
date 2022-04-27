@@ -1,13 +1,10 @@
 package com.example.BlogMovieWebsiteProject.controller;
 
-import com.example.BlogMovieWebsiteProject.dto.ListPostDto;
 import com.example.BlogMovieWebsiteProject.dto.PostDetailDto;
 import com.example.BlogMovieWebsiteProject.dto.PostsDto;
-import com.example.BlogMovieWebsiteProject.dto.UsersDto;
-import com.example.BlogMovieWebsiteProject.model.Posts;
 import com.example.BlogMovieWebsiteProject.model.Users;
+import com.example.BlogMovieWebsiteProject.service.CategoryService;
 import com.example.BlogMovieWebsiteProject.service.PostsService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +19,14 @@ import java.util.List;
 public class PostsController
 {
     @Autowired
-    public PostsService postsService;
+    private PostsService postsService;
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping("/add-new-post")
     public String showAddNewPostView(Model model){
         model.addAttribute("post", new PostsDto());
+        model.addAttribute("listCategory", categoryService.listCategory());
         return "/views/user/post/new-post";
     }
 
@@ -59,7 +59,7 @@ public class PostsController
     public String viewPostDetail(@PathVariable(name = "postId")String postId,
                                  Model model){
         model.addAttribute("postDetail", postsService.viewDetailPost(postId));
-        return "/views/user/post/view-detail-post";
+        return "views/user/post/view-detail-post-of-user";
     }
 
 }
