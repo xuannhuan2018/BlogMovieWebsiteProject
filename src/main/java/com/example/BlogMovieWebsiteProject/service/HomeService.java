@@ -18,17 +18,22 @@ public class HomeService {
     public List<PostDetailDto> listPostInHome(){
         List<PostDetailDto> postDetailDtoList = new ArrayList<>();
         List<Posts> postsList = postsRepository.findAllByBrowserOrderByCreatedDesc(true);
-        for(int i = 0; i < 3; i++){
-            Posts posts = postsList.get(i);
-            PostDetailDto postDetailDto = new PostDetailDto();
-            postDetailDto.setId(posts.getId());
-            postDetailDto.setTitle(posts.getTitle());
-            postDetailDto.setUsername(posts.getUsername());
-            postDetailDto.setCreated(posts.getCreated());
-            postDetailDto.setDescription(posts.getDescription());
-            postDetailDto.setCategory(posts.getCategory());
-            postDetailDto.setImgHeader(posts.getImgHeader());
-            postDetailDtoList.add(postDetailDto);
+        if(postsList == null){
+            System.out.println("Chưa có bài nào được duyệt");
+        }
+        else {
+            for (int i = 0; i < 3; i++) {
+                Posts posts = postsList.get(i);
+                PostDetailDto postDetailDto = new PostDetailDto();
+                postDetailDto.setId(posts.getId());
+                postDetailDto.setTitle(posts.getTitle());
+                postDetailDto.setUsername(posts.getUsername());
+                postDetailDto.setCreated(posts.getCreated());
+                postDetailDto.setDescription(posts.getDescription());
+                postDetailDto.setCategory(posts.getCategory());
+                postDetailDto.setImgHeader(posts.getImgHeader());
+                postDetailDtoList.add(postDetailDto);
+            }
         }
         return postDetailDtoList;
     }
