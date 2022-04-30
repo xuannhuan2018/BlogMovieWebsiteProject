@@ -10,7 +10,7 @@
 ## **2. Thông tin đồ án:**
 ```
 - Ngôn ngữ: Java
-- Cơ sở dữ liệu: Elastic Search 7.12.1
+- Cơ sở dữ liệu: Elastic Search
 - Công nghệ sử dụng:
   1. Spring Boot 2.5.12
   2. Thymeleaf
