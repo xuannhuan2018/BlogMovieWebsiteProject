@@ -24,7 +24,7 @@
                                         <span></span>
                                         <a th:href="@{'/post/'+${post.Id}}"><h4>[[${post.title}]]</h4></a>
                                         <ul class="post-info">
-                                            <li><a href="#">[[${post.username}]]</a></li>
+                                            <li><i class="fa fa-user"></i> [[${post.username}]]
                                             <li>[[${post.created}]]</li>
 
                                         </ul>
@@ -35,7 +35,10 @@
                                                     <ul class="post-tags">
                                                         <li><i class="fa fa-tags"></i></li>
                                                         <li>
-                                                            <a></a></li>
+                                                            <th:block th:each="category :${post.category}">
+                                                                <a style="background-color: #f48840;border-color: #f48840;color: #fff" th:href="@{/post/{category}/list(category=${category})}">[[${category}]]&nbsp;</a>
+                                                            </th:block>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>

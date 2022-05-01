@@ -42,7 +42,8 @@
                                             </th:block>
                                         </ul>
                                         <ul class="post-info">
-                                            <li><a href="#">[[${postDetail.username}]]</a></li>
+                                            <li><i class="fa fa-user"></i> [[${postDetail.username}]]
+                                            </li>
                                             <li>[[${postDetail.created}]]</li>
                                         </ul>
                                         <!--                                                                            <div>-->
@@ -59,6 +60,9 @@
                                             </div>
                                         </div>
                                         <br>
+                                        <div style="right: 25px; position: absolute;">
+                                            <b>Đánh giá:</b> <span> [[${postDetail.yourRating}]]/10</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -196,32 +200,29 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--                            <div class="col-lg-12">-->
-                            <!--                                <div class="sidebar-item tags">-->
-                            <!--                                    <div class="sidebar-heading">-->
-                            <!--                                        <h2>Tag Clouds</h2>-->
-                            <!--                                    </div>-->
-                            <!--                                    <div class="content">-->
-                            <!--                                        <ul>-->
-                            <!--                                            <li><a href="#">Lifestyle</a></li>-->
-                            <!--                                            <li><a href="#">Creative</a></li>-->
-                            <!--                                            <li><a href="#">HTML5</a></li>-->
-                            <!--                                            <li><a href="#">Inspiration</a></li>-->
-                            <!--                                            <li><a href="#">Motivation</a></li>-->
-                            <!--                                            <li><a href="#">PSD</a></li>-->
-                            <!--                                            <li><a href="#">Responsive</a></li>-->
-                            <!--                                        </ul>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
+                            <div class="col-lg-12">
+                                <div class="sidebar-item tags">
+                                    <div class="sidebar-heading">
+                                        <h2>Tags</h2>
+                                    </div>
+                                    <div class="content">
+                                        <ul>
+                                            <th:block th:each="tag:${postDetail.tags}">
+                                                <li><a href="#">[[${tag}]]</a></li>
+                                            </th:block>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script>
-            $('#post').addClass('active');
-        </script>
-</section>
+            <script>
+                $('#post').addClass('active');
+            </script>
+    </section>
 </div>
 </body>
 </html>

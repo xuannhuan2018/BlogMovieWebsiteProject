@@ -54,7 +54,7 @@
                                         <a th:href="@{'/user/post/'+${item.Id}}"><h4>[[${item.title}]]</h4></a> <h6
                                             th:if="${!item.browser}">(Chưa được duyệt)</h6>
                                         <ul class="post-info">
-                                            <li><a href="#" th:utext="${item.username}">Admin</a></li>
+                                            <li><i class="fa fa-user"></i> [[${item.username}]]
                                             <li>[[${item.created}]]</li>
                                             <!--                    <li><a href="#">12 Comments</a></li>-->
                                         </ul>

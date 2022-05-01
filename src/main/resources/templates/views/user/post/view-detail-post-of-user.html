@@ -45,7 +45,7 @@
                                             </th:block>
                                         </ul>
                                         <ul class="post-info">
-                                            <li><a href="#">[[${postDetail.username}]]</a></li>
+                                            <li><i class="fa fa-user"></i> [[${postDetail.username}]]
                                             <li>[[${postDetail.created}]]</li>
                                         </ul>
                                         <!--                                                                            <div>-->
@@ -62,6 +62,9 @@
                                             </div>
                                         </div>
                                         <br>
+                                        <div style="right: 25px; position: absolute;">
+                                            <b>Đánh giá:</b> <span> [[${postDetail.yourRating}]]/10</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
