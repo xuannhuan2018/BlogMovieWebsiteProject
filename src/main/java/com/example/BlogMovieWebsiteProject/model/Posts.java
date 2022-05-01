@@ -15,25 +15,34 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "posts-movie")
-public class Posts
-{
+public class Posts  {
     @Id
     private String Id;
 
+    @Field(type = FieldType.Long)
     private long number;
-
+    @Field(type = FieldType.Text)
     private String username;
+
     private List<String> category;
+    @Field(type = FieldType.Text)
     private String title;
+    @Field(type = FieldType.Text)
     private String imgHeader;
+    @Field(type = FieldType.Text)
     private String description;
+    @Field(type = FieldType.Text)
+    private List<String> tags;
+
     private List<ItemPosts> itemPost;
-    private double IMDb;
+    @Field(type = FieldType.Text)
     private double yourRating;
 
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")

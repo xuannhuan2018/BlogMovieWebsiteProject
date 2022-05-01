@@ -29,8 +29,8 @@ public class PostsDto
     private String title;
     private MultipartFile imgHeader;
     private String description;
+    private List<String> tags;
     private List<ItemPostsDto> itemPost;
-    private double IMDb;
     private double yourRating;
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date created;

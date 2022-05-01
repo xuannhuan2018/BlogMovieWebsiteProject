@@ -30,7 +30,6 @@ public class PostDetailDto {
     private String imgHeader;
     private String description;
     private List<ItemPosts> itemPost;
-    private double IMDb;
     private double yourRating;
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date created;
