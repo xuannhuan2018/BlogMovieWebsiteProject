@@ -47,7 +47,7 @@
                                                     <label for="title">Chọn ảnh nổi bật:</label>
                                                     <input type="file" id="Headerimg" th:field="*{imgHeader}"
                                                            accept="image/*" onchange="displayImg(event)"
-                                                           placeholder="Thêm ảnh nổi bật">
+                                                           placeholder="Thêm ảnh nổi bật" required>
                                                     <img id="HeaderimgDisplay" width="50%"/>
                                                 </div>
                                                 <div class="col-md-12 col-sm-12">
@@ -59,10 +59,6 @@
                                                     </fieldset>
                                                 </div>
                                                 <div class="col-md-12 col-sm-12">
-                                                    <!--                                                    <fieldset>-->
-                                                    <!--                                                        <label for="topic">Chủ đề:</label>-->
-                                                    <!--                                                        <input type="text" th:field="*{category}"  id="topic" placeholder="Nhập tiêu đề" required="" style="text-transform: none">-->
-                                                    <!--                                                    </fieldset>-->
                                                     <fieldset>
                                                         <div class=”input-group”>
                                                             <label class=”input-group-text” for="category">Chủ đề:</label>
@@ -81,6 +77,14 @@
                                                 </div>
                                                 <div class="col-md-12 col-sm-12">
                                                     <fieldset>
+                                                        <label for="tags">Tags:</label>
+                                                        <input type="text" id="tags"
+                                                               placeholder="Ví dụ: Chiếu rạp 2022, Phim Hot tháng 4,..." required=""
+                                                               style="text-transform: none; font-style: oblique" th:field="*{tags}">
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset>
                                                         <label for="description">Mô tả:</label>
                                                         <textarea rows="10" type="text"
                                                                   id="description" placeholder="Mô tả ở đây nhé!"
@@ -92,6 +96,15 @@
 
                                                 <div id="ItemList" class="col-lg-12">
 
+                                                </div>
+                                                <div class="col-md-12 col-sm-12">
+                                                    <fieldset>
+                                                        <label for="rating">Đánh giá:</label>
+                                                        <label><input type="text" id="rating" required="" onkeyup="checkRating()"
+                                                                      style="text-transform: none; width: 70px; height: 25px" th:field="*{yourRating}">
+                                                        </label>
+                                                        <label> <span id="errorRating" style="color: red; font-size: 12px"></span></label>
+                                                    </fieldset>
                                                 </div>
 
                                                 <div class="col-lg-12">
@@ -193,6 +206,25 @@
 
         function deleteItem(event) {
             document.getElementById(event.target.value).remove();
+        }
+        function checkRating(){
+            let errorRating = document.getElementById('errorRating');
+            let rating = document.getElementById('rating').value;
+            let submit = document.getElementById('form-submit');
+            console.log(parseFloat(rating));
+            if(isNaN(rating)){
+                console.log(rating);
+                errorRating.innerHTML = "Chỉ bao gồm số từ 0.0 - 10.0";
+                submit.disabled = true;
+            }
+            else if(parseFloat(rating) < 0.0 || parseFloat(rating) > 10.0){
+                errorRating.innerHTML = "Điểm số đánh giá chỉ từ 0.0 - 10.0";
+                submit.disabled = true;
+            }
+            else {
+                errorRating.innerText = "";
+                submit.disabled = false;
+            }
         }
     </script>
     <script type="text/javascript" th:inline="javascript" th:unless="${session.user}">
