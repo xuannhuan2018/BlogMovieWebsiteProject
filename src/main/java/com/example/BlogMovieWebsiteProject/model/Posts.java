@@ -41,8 +41,8 @@ public class Posts {
     private List<String> tags;
 
     private List<ItemPosts> itemPost;
-    @Field(type = FieldType.Text)
-    private double yourRating;
+    @Field(type = FieldType.Long)
+    private long yourRating;
 
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date created;

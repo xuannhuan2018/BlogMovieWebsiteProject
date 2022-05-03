@@ -31,7 +31,7 @@ public class PostDetailDto {
     private String description;
     private List<ItemPosts> itemPost;
     private List<String> tags;
-    private double yourRating;
+    private long yourRating;
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date created;
     private Integer visit;
