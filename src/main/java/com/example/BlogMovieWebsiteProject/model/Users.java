@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
@@ -24,10 +25,21 @@ public class Users
 {
     @Id
     private String id;
+
+    @Field(type = FieldType.Text)
     private String username;
+
+    @Field(type = FieldType.Text)
     private String password;
+
+    @Field(type = FieldType.Text)
     private String email;
+
+    @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
     private String created;
+
+    @Field(type = FieldType.Boolean)
     private boolean status;
+
     private Roles role;
 }
