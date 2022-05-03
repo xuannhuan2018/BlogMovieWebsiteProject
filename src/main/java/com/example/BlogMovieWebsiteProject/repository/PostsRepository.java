@@ -4,7 +4,6 @@ import com.example.BlogMovieWebsiteProject.model.Posts;
 import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,8 +13,6 @@ public interface PostsRepository extends ElasticsearchRepository<Posts, String>,
     List<Posts> findAll();
 
     List<Posts> findAllByUsername(String username);
-
-    List<SearchHit<Posts>> findListPostInHome();
 
 //    @Query("{" +
 //            "   \"bool\": {" +

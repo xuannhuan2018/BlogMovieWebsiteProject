@@ -31,7 +31,7 @@
                                         <p th:text="${#strings.abbreviate(post.description,270)}"></p>
                                         <div class="post-options">
                                             <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-12">
                                                     <ul class="post-tags">
                                                         <li><i class="fa fa-tags"></i></li>
                                                         <li>
@@ -60,8 +60,8 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="sidebar-item search">
-                                                                    <form id="search_form" name="gs" method="GET" action="#">
-                                                                        <input type="text" name="q" class="searchText" placeholder="Tìm kiếm" autocomplete="on">
+                                                                    <form id="search_form" name="gs" method="GET" th:action="@{/home/search/get/}">
+                                                                        <input type="text" th:name="keyword" class="searchText" placeholder="Tìm kiếm" autocomplete="on">
                                                                     </form>
                                 </div>
                             </div>
@@ -70,15 +70,6 @@
                                     <div class="sidebar-heading">
                                         <h2>Bài viết nổi bật</h2>
                                     </div>
-                                    <!--                                    <div class="content" th:if="${indexResponse.postTrending}">-->
-                                    <!--                                        <a th:href="@{'/post/'+${indexResponse.postTrending.number}}"><h5-->
-                                    <!--                                                th:utext="${indexResponse.postTrending.title}"-->
-                                    <!--                                                style="color: black!important;"></h5></a>-->
-                                    <!--                                    <p th:utext="${indexResponse.postTrending.description}"> (Tóm tắt mô tả)</p>-->
-                                    <!--                                    <ul class="post-info">-->
-                                    <!--                                        <li><a href="#" th:utext="${indexResponse.postTrending.authorName}">(Người đăng?)</a></li>-->
-                                    <!--                                    </ul>-->
-                                    <!--                                    </div>-->
                                 </div>
                             </div>
                             <div class="col-lg-12">

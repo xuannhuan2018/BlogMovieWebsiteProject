@@ -10,10 +10,12 @@ import com.example.BlogMovieWebsiteProject.repository.UsersRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
+import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import com.example.BlogMovieWebsiteProject.repository.PostsRepository;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -42,9 +44,10 @@ public class PostsService {
         posts.setCategory(postsDto.getCategory());
         posts.setTitle(postsDto.getTitle());
         posts.setDescription(postsDto.getDescription());
-        posts.setIMDb(postsDto.getIMDb());
+        posts.setTags(postsDto.getTags());
         posts.setYourRating(postsDto.getYourRating());
         posts.setCreated(date);
+        posts.setVisit(0);
         posts.setBrowser(false);
 
         List<Posts> postsList = postsRepository.findAll();
@@ -100,12 +103,48 @@ public class PostsService {
         return postDtoList;
     }
 
-    public PostDetailDto viewDetailPost(String postId){
+    public PostDetailDto viewDetailPost(String postId, HttpServletRequest request){
         Optional<Posts> opPosts = postsRepository.findById(postId);
         Posts posts = opPosts.get();
+        if (!request.getRequestURL().toString().contains("/user/post")){
+            posts.setVisit(posts.getVisit()+1);
+            postsRepository.save(posts);
+        }
         PostDetailDto postDto = this.setPostModelToPostDto(posts);
         return postDto;
     }
+
+    public List<PostDetailDto> search(String keyword, String searchType){
+        List<SearchHit<Posts>> searchHitList = null;
+        List<PostDetailDto> postDetailDtoList = new ArrayList<>();
+        if(searchType.equals("all")){
+            searchHitList = postsRepository.searchAll(keyword);
+        }
+        else {
+            searchHitList = postsRepository.searchByType(keyword, searchType);
+        }
+        if(searchHitList != null){
+            for (SearchHit<Posts> postsSearchHit : searchHitList) {
+                PostDetailDto postDetailDto;
+                Posts posts = postsSearchHit.getContent();
+                postDetailDto = this.setPostModelToPostDto(posts);
+                postDetailDtoList.add(postDetailDto);
+            }
+        }
+        return postDetailDtoList;
+    }
+    public List<PostDetailDto> listAllPost(){
+        List<PostDetailDto> postDetailDtoList = new ArrayList<>();
+        List<SearchHit<Posts>> postsSearchHitList = postsRepository.findAllPost();
+        for (SearchHit<Posts> postsSearchHit : postsSearchHitList) {
+            PostDetailDto postDetailDto;
+            Posts posts = postsSearchHit.getContent();
+            postDetailDto = this.setPostModelToPostDto(posts);
+            postDetailDtoList.add(postDetailDto);
+        }
+        return postDetailDtoList;
+    }
+
     public PostDetailDto setPostModelToPostDto(Posts posts){
         PostDetailDto postDetailDto = new PostDetailDto();
         postDetailDto.setId(posts.getId());
@@ -115,10 +154,12 @@ public class PostsService {
         postDetailDto.setImgHeader(posts.getImgHeader());
         postDetailDto.setDescription(posts.getDescription());
         postDetailDto.setItemPost(posts.getItemPost());
-        postDetailDto.setIMDb(posts.getNumber());
+        postDetailDto.setTags(posts.getTags());
         postDetailDto.setYourRating(posts.getYourRating());
         postDetailDto.setCreated(posts.getCreated());
+        postDetailDto.setVisit(posts.getVisit());
         postDetailDto.setBrowser(posts.isBrowser());
         return postDetailDto;
     }
+
 }

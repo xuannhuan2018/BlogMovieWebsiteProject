@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{decorator/user}">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Blog - Tìm kiếm</title>
+</head>
+<body>
+<div layout:fragment="~{content}">
+    <div class="heading-page header-text">
+        <section class="page-heading">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-content">
+                            <h4>Movie BLog</h4>
+                            <h2>Tìm kiếm</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Banner Ends Here -->
+
+    <section class="blog-posts grid-system">
+        <div class="container">
+            <div class="sidebar">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <img style="display: block;
+                            margin-left: auto;
+                            margin-right: auto; width: 30%" th:src="@{/images/search.png}">
+                        <br>
+                        <div class="sidebar-item search ">
+                            <form id="search_form" method="GET" th:action="@{/home/search/get/}">
+                                &emsp;&emsp;&emsp;<input type="search" th:name="keyword" class="searchText"
+                                                                     placeholder="Nhập từ khóa..."
+                                                                     autocomplete="on"
+                                                                     style="font-style:oblique; font-size: 20px;text-transform: none; width: 70%; border-width: 0.5px; height: 51px; border-color: black">
+                                <label>
+                                    <select class=”custom-select”
+                                            style="width: 180%; height: 51px; border-width: 2px; font-size: 20px" th:name="searchType">
+                                        <option th:value="'all'" id="all">Tất cả</option>
+                                        <option th:value="'title'" id="title">Tiêu đề</option>
+                                        <option th:value="'category'" id="category">Danh mục</option>
+                                        <option th:value="'description'"  id="description">Mô tả</option>
+                                        <option th:value="'itemPost.text'" id="content">Nội dung</option>
+                                        <option th:value="'tags'" id="tags">Tag</option>
+                                    </select>
+                                </label>
+                            </form>
+                        </div>
+                        <div th:if="${listSearchResult}">&emsp;&emsp;&emsp;<i>Kết quả tìm kiếm cho từ khóa: <b>[[${keyword}]]</b>, tìm được <b>[[${listSearchResult.size()}]]</b> bài viết.</i></div>
+                        <br>
+                        <div class="row" th:if="${listSearchResult != null}">
+                            <div class="col-lg-12">
+                                <div class="all-blog-posts">
+                                    <div class="row">
+                                        <div class="col-lg-6" th:each="item : ${listSearchResult}">
+                                            <div class="blog-post">
+                                                <div class="blog-thumb">
+                                                    <a th:href="@{'/post/'+${item.Id}}"><img th:src="@{'/'+${item.imgHeader}}"
+                                                                                                  width="345px" height="317px"></a>
+                                                </div>
+                                                <div class="down-content">
+                                                    <a th:href="@{'/post/'+${item.Id}}"><h4>[[${item.title}]]</h4></a>
+                                                    <ul class="post-info">
+                                                        <li><i class="fa fa-user"></i> [[${item.username}]]
+                                                        <li>[[${item.created}]]</li>
+                                                    </ul>
+                                                    <ul class="post-info">
+                                                        <li><a>[[${item.visit}]] lượt xem</a></li>
+                                                    </ul>
+                                                    <p th:text="${#strings.abbreviate(item.description,150)}"></p>
+                                                    <div class="post-options">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <ul class="post-tags">
+                                                                    <li><i class="fa fa-tags"></i></li>
+                                                                    <li>
+                                                                        <th:block th:each="category :${item.category}">
+                                                                            <a style="background-color: #f48840;border-color: #f48840;color: #fff" th:href="@{/post/{category}/list(category=${category})}">[[${category}]]&nbsp;</a>
+                                                                        </th:block>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <!--            <ul class="page-numbers">-->
+                                        <!--              <li><a href="#">1</a></li>-->
+                                        <!--              <li class="active"><a href="#">2</a></li>-->
+                                        <!--              <li><a href="#">3</a></li>-->
+                                        <!--              <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>-->
+                                        <!--            </ul>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script type="text/javascript" th:inline="javascript">
+        $(function($) {
+            let url = window.location.href.toString();
+            let z = [[${searchType}]].toString();
+            if(url.includes(z)){
+                if(z !=="itemPost.text") {
+                    $('#' + [[${searchType}]]).prop('selected', true);
+                }
+                else {
+                    $('#content').prop('selected', true);
+                }
+            }
+        });
+    </script>
+</div>
+</body>

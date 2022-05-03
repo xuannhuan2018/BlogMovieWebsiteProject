@@ -23,9 +23,8 @@ class BlogMovieWebsiteProjectApplicationTests {
 
 	@Test
 	public void testListRecentPost(){
-//		List<Posts> postsList1 = postsRepository.findAllByBrowserOrderByCreatedDesc(false);
-		//PostRepositoryCustom postsRepository = new PostsRepository_impl();
-		List<SearchHit<Posts>> searchHitsList = postsRepository.findListPostInHome();
+		List<SearchHit<Posts>> searchHitsList = postsRepository.searchAll("C");
+		List<SearchHit<Posts>> searchHitsListz = postsRepository.searchByType("ự", "category");
 	}
 
 }

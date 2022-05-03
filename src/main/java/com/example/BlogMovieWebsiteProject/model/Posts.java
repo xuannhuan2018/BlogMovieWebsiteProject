@@ -7,13 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.DateFormat;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.annotations.*;
+import org.yaml.snakeyaml.introspector.FieldProperty;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
 
@@ -22,7 +21,7 @@ import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(indexName = "posts-movie")
-public class Posts  {
+public class Posts {
     @Id
     private String Id;
 
@@ -30,7 +29,7 @@ public class Posts  {
     private long number;
     @Field(type = FieldType.Text)
     private String username;
-
+    @Field(type = FieldType.Text)
     private List<String> category;
     @Field(type = FieldType.Text)
     private String title;
@@ -47,6 +46,8 @@ public class Posts  {
 
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date created;
-
+    @Field(type = FieldType.Integer)
+    private Integer visit;
+    @Field(type = FieldType.Boolean)
     private boolean browser;
 }

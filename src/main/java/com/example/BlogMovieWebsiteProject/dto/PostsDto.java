@@ -34,5 +34,6 @@ public class PostsDto
     private double yourRating;
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date created;
+    private Integer visit;
     private boolean browser;
 }

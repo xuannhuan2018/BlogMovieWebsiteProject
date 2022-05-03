@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -58,8 +59,8 @@ public class PostsController
 
     @GetMapping("/{postId}")
     public String viewPostDetail(@PathVariable(name = "postId")String postId,
-                                 Model model){
-        model.addAttribute("postDetail", postsService.viewDetailPost(postId));
+                                 Model model, HttpServletRequest request){
+        model.addAttribute("postDetail", postsService.viewDetailPost(postId, request));
         return "views/user/post/view-detail-post-of-user";
     }
 

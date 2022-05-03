@@ -31,47 +31,114 @@
                 <div class="col-lg-8">
                     <div class="all-blog-posts">
                         <div class="row">
-                            <!--                        <div class="col-lg-6" th:each="item : ${listPostResponse.listPost}">-->
-                            <!--                            <div class="blog-post">-->
-                            <!--                                <div class="blog-thumb">-->
-                            <!--                                    <img th:src="@{'/'+${item.imgHeader}}" width="345px" height="317px">-->
-                            <!--                                </div>-->
-                            <!--                                <div class="down-content">-->
-                            <!--                                    <p th:if="${!item.browser}">Chưa được duyệt</p>-->
-                            <!--                                    <a th:href="@{'/post/'+${item.number}}"><h4 th:utext="${item.title}">Donec tincidunt leo</h4></a>-->
-                            <!--                                    <ul class="post-info">-->
-                            <!--                                        <li><a href="#" th:utext="${item.authorName}">Admin</a></li>-->
-                            <!--                                        <li><a href="#" th:utext="${#temporals.format(item.created,'dd/MM/yyyy HH:mm')}">May 31, 2020</a></li>-->
-                            <!--                                        &lt;!&ndash;                                            <li><a href="#">12 Comments</a></li>&ndash;&gt;-->
-                            <!--                                    </ul>-->
-                            <!--                                    <p th:utext="${#strings.abbreviate(item.description,100)}">Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>-->
-                            <!--                                    <div class="post-options">-->
-                            <!--                                        <div class="row">-->
-                            <!--                                            <div class="col-lg-12">-->
-                            <!--                                                <ul class="post-tags">-->
-                            <!--                                                    <li><i class="fa fa-tags"></i></li>-->
-                            <!--                                                    <li><a th:href="@{/post/{category}/list(category=${item.category})}" th:utext="${item.category}"></a></li>-->
-                            <!--                                                </ul>-->
-                            <!--                                            </div>-->
-                            <!--                                        </div>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                            <!--                        </div>-->
+                            <div class="col-lg-6" th:each="item : ${listAllPost}">
+                                <div class="blog-post">
+                                    <div class="blog-thumb">
+                                        <a th:href="@{'/post/'+${item.Id}}"><img th:src="@{'/'+${item.imgHeader}}"
+                                                                                 width="345px" height="317px"></a>
+                                    </div>
+                                    <div class="down-content">
+                                        <a th:href="@{'/post/'+${item.Id}}"><h4>[[${item.title}]]</h4></a>
+                                        <ul class="post-info">
+                                            <li><i class="fa fa-user"></i> [[${item.username}]]
+                                            <li>[[${item.created}]]</li>
+                                            <li><a>[[${item.visit}]] lượt xem</a></li>
+                                        </ul>
+                                        <p th:text="${#strings.abbreviate(item.description,150)}"></p>
+                                        <div class="post-options">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <ul class="post-tags">
+                                                        <li><i class="fa fa-tags"></i></li>
+                                                        <li>
+                                                            <th:block th:each="category :${item.category}">
+                                                                <a style="background-color: #f48840;border-color: #f48840;color: #fff"
+                                                                   th:href="@{/post/{category}/list(category=${category})}">[[${category}]]&nbsp;</a>
+                                                            </th:block>
+                                                        </li>
+                                                    </ul>
                                                 </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <!--                            <ul class="page-numbers">-->
+                            <!--                                <li><a href="#">1</a></li>-->
+                            <!--                                <li class="active"><a href="#">2</a></li>-->
+                            <!--                                <li><a href="#">3</a></li>-->
+                            <!--                                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>-->
+                            <!--                            </ul>-->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="sidebar">
+                        <div class="row">
                             <div class="col-lg-12">
-                                <!--                            <ul class="page-numbers">-->
-                                <!--                                <li><a href="#">1</a></li>-->
-                                <!--                                <li class="active"><a href="#">2</a></li>-->
-                                <!--                                <li><a href="#">3</a></li>-->
-                                <!--                                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>-->
-                                <!--                            </ul>-->
+                                <div class="sidebar-item search">
+                                    <form id="search_form" name="gs" method="GET" th:action="@{/home/search/get/}">
+                                        <input type="text" th:name="keyword" class="searchText" placeholder="Tìm kiếm" autocomplete="on">
+                                    </form>
+                                </div>
+                            </div>
+                            <br>
+                            <br>
+                            <br>
+                            <div class="col-lg-12">
+                                <div class="sidebar-item search recent-posts">
+                                    <div class="sidebar-heading">
+                                        <h2>Bài viết nổi bật</h2>
+                                    </div>
+                                    <div class="content">
+                                        <ul>
+                                            <li>
+                                                <a href="post-details.html">
+                                                    <h6 style="color: black">(Tựa đề)</h6>
+                                                    <span>(Ngày tạo)</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="post-details.html">
+                                                    <h6 style="color: black">(Tựa đề)</h6>
+                                                    <span>(Ngày tạo)</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="post-details.html">
+                                                    <h6 style="color: black">(Tựa đề)</h6>
+                                                    <span>(Ngày tạo)</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="sidebar-item categories">
+                                    <div class="sidebar-heading">
+                                        <h2>Chủ đề</h2>
+                                    </div>
+                                    <div class="content">
+                                        <ul>
+                                            <th:block th:each="category:${listCategory}">
+                                                <li><a href="#">- [[${category}]]</a></li>
+                                            </th:block>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-    </section>
+        </div>
+</div>
+</div>
+</section>
 </div>
 </body>
 </html>
