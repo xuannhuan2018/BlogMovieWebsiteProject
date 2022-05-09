@@ -29,9 +29,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class PostsService {
     @Autowired
-    private final UsersRepository usersRepository;
-
-    @Autowired
     private final PostsRepository postsRepository;
 
     @Autowired
@@ -143,6 +140,25 @@ public class PostsService {
             postDetailDtoList.add(postDetailDto);
         }
         return postDetailDtoList;
+    }
+
+    //Get the 3 posts with the highest number of views (visit)
+    public List<PostDetailDto> listTopThreePostsHighestViews(){
+        List<PostDetailDto> postDetailDtoLists = new ArrayList<>();
+        List<SearchHit<Posts>> postsSearchHitList = postsRepository.findThreePostsMaxViews();
+        for (SearchHit<Posts> postsSearchHit : postsSearchHitList) {
+            Posts posts = postsSearchHit.getContent();
+            PostDetailDto postDetailDto = new PostDetailDto();
+            postDetailDto.setId(posts.getId());
+            postDetailDto.setTitle(posts.getTitle());
+            postDetailDto.setUsername(posts.getUsername());
+            postDetailDto.setCreated(posts.getCreated());
+            postDetailDto.setDescription(posts.getDescription());
+            postDetailDto.setCategory(posts.getCategory());
+            postDetailDto.setImgHeader(posts.getImgHeader());
+            postDetailDtoLists.add(postDetailDto);
+        }
+        return postDetailDtoLists;
     }
 
     public PostDetailDto setPostModelToPostDto(Posts posts){

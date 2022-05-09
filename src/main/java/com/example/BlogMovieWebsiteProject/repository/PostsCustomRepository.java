@@ -11,4 +11,5 @@ public interface PostsCustomRepository {
     List<SearchHit<Posts>> findAllPost();
     List<SearchHit<Posts>> searchAll(String keyword);
     List<SearchHit<Posts>> searchByType(String keyword, String searchType);
+    List<SearchHit<Posts>> findThreePostsMaxViews();
 }

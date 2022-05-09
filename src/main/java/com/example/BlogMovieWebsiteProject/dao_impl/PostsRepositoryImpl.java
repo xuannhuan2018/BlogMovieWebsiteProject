@@ -40,6 +40,17 @@ public class PostsRepositoryImpl implements PostsCustomRepository {
     }
 
     @Override
+    public List<SearchHit<Posts>> findThreePostsMaxViews()
+    {
+        QueryBuilder matchQuery = matchQuery("browser", true);
+        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(matchQuery)
+                .withSort(SortBuilders.fieldSort("visit")
+                        .order(SortOrder.DESC))
+                .withMaxResults(3).build();
+        SearchHits<Posts> postsSearchHits = elasticsearchOperations.search(searchQuery, Posts.class);
+        return postsSearchHits.getSearchHits();
+    }
+    @Override
     public List<SearchHit<Posts>> findAllPost() {
         QueryBuilder matchQuery = matchQuery("browser", true);
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(matchQuery)
@@ -61,6 +72,7 @@ public class PostsRepositoryImpl implements PostsCustomRepository {
                                 .field("description")
                                 .field("itemPost.text")
                                 .field("tags")
+                                .field("username")
                                 .defaultOperator(Operator.AND))
                         .should(multiMatchQuery(keyword)
                                 .field("title")
@@ -68,6 +80,7 @@ public class PostsRepositoryImpl implements PostsCustomRepository {
                                 .field("description")
                                 .field("itemPost.text")
                                 .field("tags")
+                                .field("username")
                                 .type(MultiMatchQueryBuilder.Type.BEST_FIELDS)
                                 .operator(Operator.AND)
                                 .fuzziness(Fuzziness.ONE)));
@@ -79,7 +92,9 @@ public class PostsRepositoryImpl implements PostsCustomRepository {
     @Override
     public List<SearchHit<Posts>> searchByType(String keyword, String searchType) {
         QueryBuilder boolQuery = boolQuery()
-                .must(wildcardQuery(searchType, "*" + keyword + "*"))
+                .must(queryStringQuery("*" +keyword + "*")
+                        .field(searchType)
+                        .defaultOperator(Operator.AND))
                 .must(matchQuery("browser", true));
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(boolQuery).build();
         SearchHits<Posts> postsSearchHits = elasticsearchOperations.search(searchQuery, Posts.class);

@@ -32,6 +32,7 @@ public class HomeController {
         List<PostDetailDto> postDetailDtoList = homeService.listPostInHome();
         model.addAttribute("listCategory", categoryService.listCategory());
         model.addAttribute("listPostInHome", postDetailDtoList);
+        model.addAttribute("listTopThreePosts", postsService.listTopThreePostsHighestViews());
         return "/views/index";
     }
 
@@ -46,6 +47,7 @@ public class HomeController {
     public String listAllPost(Model model){
         model.addAttribute("listCategory", categoryService.listCategory());
         model.addAttribute("listAllPost", postsService.listAllPost());
+        model.addAttribute("listTopThreePosts", postsService.listTopThreePostsHighestViews());
         return "/views/user/post/list-post";
     }
 
