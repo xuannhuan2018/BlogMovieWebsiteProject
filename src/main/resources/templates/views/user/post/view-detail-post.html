@@ -38,7 +38,7 @@
                                         <ul class="post-info">
                                             <th:block th:each="category :${postDetail.category}">
                                                 <a style="background-color: #f48840;border-color: #f48840;color: #fff"
-                                                   th:href="@{/post/{category}/list(category=${category})}">[[${category}]]&nbsp;</a>
+                                                   th:href="@{'/home/search/get/'+${category}}">[[${category}]]&nbsp;</a>
                                             </th:block>
                                         </ul>
                                         <ul class="post-info">
@@ -193,7 +193,7 @@
                                     <div class="content">
                                         <ul>
                                             <th:block th:each="category:${listCategory}">
-                                                <li><a href="#">- [[${category}]]</a></li>
+                                                <li><a th:href="@{'/home/search/get/'+${category}}">- [[${category}]]</a></li>
                                             </th:block>
                                         </ul>
                                     </div>
