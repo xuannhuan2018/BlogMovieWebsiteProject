@@ -38,6 +38,15 @@ public class Users
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
     private String created;
 
+    @Field(type = FieldType.Text)
+    private String fullName;
+
+    @Field(type = FieldType.Text)
+    private String gender;
+
+    @Field(type = FieldType.Text)
+    private String address;
+
     @Field(type = FieldType.Boolean)
     private boolean status;
 

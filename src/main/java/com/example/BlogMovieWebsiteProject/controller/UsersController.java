@@ -1,10 +1,12 @@
 package com.example.BlogMovieWebsiteProject.controller;
 
 import com.example.BlogMovieWebsiteProject.dto.UsersDto;
+import com.example.BlogMovieWebsiteProject.model.Users;
 import com.example.BlogMovieWebsiteProject.service.AuthenticationService;
 import com.example.BlogMovieWebsiteProject.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -55,6 +57,29 @@ public class UsersController
         return "redirect:" + url;
     }
 
+    @GetMapping("/{username}/information")
+    public String showUserInformationForm(@PathVariable(name = "username")String username,
+                                          Model model){
+        model.addAttribute("user", usersService.findUserByUsername(username));
+        return "/views/user/information";
+    }
+
+    @GetMapping("/{username}/edit")
+    public String showEditInformationForm(@PathVariable(name = "username")String username,
+                                          Model model){
+        model.addAttribute("user", usersService.findUserByUsername(username));
+        return "/views/user/edit-information";
+    }
+
+    @PostMapping("/{username}/save")
+    public String saveInformationOfUser(@ModelAttribute(name = "user")UsersDto usersDto,
+                                        @PathVariable(name = "username")String username,
+                                        RedirectAttributes ra){
+        usersService.saveUser(usersDto, username);
+        ra.addFlashAttribute("alert", "Chỉnh sửa tài khoản thành công");
+        return "redirect:/user/" + usersDto.getUsername() + "/information";
+    }
+
     @GetMapping("/logout")
     public String logoutUser(HttpServletRequest request){
         String url = request.getHeader("referer");
@@ -63,4 +88,5 @@ public class UsersController
         session.invalidate();
         return "redirect:" + url;
     }
+
 }

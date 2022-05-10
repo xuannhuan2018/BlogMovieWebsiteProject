@@ -17,20 +17,22 @@ public class UsersDto
 {
     @Id
     private String id;
-
-    @Field(type = FieldType.Text)
+    
     private String username;
 
-    @Field(type = FieldType.Text)
     private String password;
 
-    @Field(type = FieldType.Text)
     private String email;
 
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
     private String created;
 
-    @Field(type = FieldType.Boolean)
+    private String fullName;
+
+    private String gender;
+
+    private String address;
+
     private boolean status;
 
     private Roles role;

@@ -7,6 +7,7 @@ import com.example.BlogMovieWebsiteProject.model.Users;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
@@ -14,6 +15,7 @@ import java.util.Date;
 
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class UsersService
 {
@@ -56,5 +58,15 @@ public class UsersService
     }
     public Users findUserByUsername(String username){
         return usersRepository.findUsersByUsername(username);
+    }
+
+    public void saveUser(UsersDto usersDto, String username){
+        Users users = usersRepository.findUsersByUsername(username);
+        users.setFullName(usersDto.getFullName());
+        users.setAddress(usersDto.getAddress());
+        users.setEmail(usersDto.getEmail());
+        users.setGender(usersDto.getGender());
+        users.setPassword(usersDto.getPassword());
+        usersRepository.save(users);
     }
 }
