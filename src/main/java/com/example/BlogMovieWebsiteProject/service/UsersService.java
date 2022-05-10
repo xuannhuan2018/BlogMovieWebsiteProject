@@ -30,14 +30,16 @@ public class UsersService
         usersDto.setEmail(email);
         //Get current time
         Date date = new Date();
-        Timestamp timestamp = new Timestamp(date.getTime());
         //Initialize User object
         Users users = new Users();
         users.setId(usersDto.getId());
         users.setUsername(usersDto.getUsername());
         users.setPassword(usersDto.getPassword());
+        users.setFullName("(trống)");
+        users.setAddress("(trống)");
+        users.setGender("(trống)");
         users.setEmail(usersDto.getEmail());
-        users.setCreated(timestamp.toString());
+        users.setCreated(date);
         users.setStatus(true);
         users.setRole(Roles.member);
         return usersRepository.save(users);

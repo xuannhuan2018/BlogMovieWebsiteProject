@@ -103,6 +103,9 @@
     <script type="text/javascript" th:inline="javascript" th:if="${alert}">
         alert([[${alert}]]);
     </script>
+    <script type="text/javascript" th:inline="javascript" th:unless="${session.user}">
+        location.assign("/");
+    </script>
 </div>
 
 </body>

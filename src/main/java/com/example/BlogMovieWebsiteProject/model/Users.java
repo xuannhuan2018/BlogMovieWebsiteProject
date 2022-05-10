@@ -36,7 +36,7 @@ public class Users
     private String email;
 
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
-    private String created;
+    private Date created;
 
     @Field(type = FieldType.Text)
     private String fullName;
