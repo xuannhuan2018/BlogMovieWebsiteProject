@@ -94,7 +94,8 @@ public class PostsRepositoryImpl implements PostsCustomRepository {
         QueryBuilder boolQuery = boolQuery()
                 .must(matchQuery("browser", true))
                 .must(multiMatchQuery(keyword)
-                        .field(searchType));
+                        .field(searchType)
+                        .operator(Operator.AND));
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(boolQuery).build();
         SearchHits<Posts> postsSearchHits = elasticsearchOperations.search(searchQuery, Posts.class);
         return postsSearchHits.getSearchHits();

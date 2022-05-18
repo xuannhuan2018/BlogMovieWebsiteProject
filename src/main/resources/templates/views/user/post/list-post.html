@@ -53,7 +53,7 @@
                                                         <li>
                                                             <th:block th:each="category :${item.category}">
                                                                 <a style="background-color: #f48840;border-color: #f48840;color: #fff"
-                                                                   th:href="@{'/home/search/get/'+${category}}">[[${category}]]&nbsp;</a>
+                                                                   th:href="@{'/home/search/category/get/'+${category}}">[[${category}]]&nbsp;</a>
                                                             </th:block>
                                                         </li>
                                                     </ul>
@@ -115,7 +115,7 @@
                                     <div class="content">
                                         <ul>
                                             <th:block th:each="category:${listCategory}">
-                                                <li><a th:href="@{'/home/search/get/'+${category}}">- [[${category}]]</a></li>
+                                                <li><a th:href="@{'/home/search/category/get/'+${category}}">- [[${category}]]</a></li>
                                             </th:block>
                                         </ul>
                                     </div>
