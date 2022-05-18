@@ -29,6 +29,6 @@ public class TagController {
         model.addAttribute("keyword", tags);
         model.addAttribute("searchType", "tags");
         model.addAttribute("listSearchResult", postDetailDtoList);
-        return "/views/user/search";
+        return "views/user/search";
     }
 }

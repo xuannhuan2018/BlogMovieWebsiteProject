@@ -61,14 +61,14 @@ public class UsersController
     public String showUserInformationForm(@PathVariable(name = "username")String username,
                                           Model model){
         model.addAttribute("user", usersService.findUserByUsername(username));
-        return "/views/user/information";
+        return "views/user/information";
     }
 
     @GetMapping("/{username}/edit")
     public String showEditInformationForm(@PathVariable(name = "username")String username,
                                           Model model){
         model.addAttribute("user", usersService.findUserByUsername(username));
-        return "/views/user/edit-information";
+        return "views/user/edit-information";
     }
 
     @PostMapping("/{username}/save")

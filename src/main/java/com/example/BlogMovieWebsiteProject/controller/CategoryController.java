@@ -30,6 +30,6 @@ public class CategoryController {
         model.addAttribute("keyword", category);
         model.addAttribute("searchType", "category");
         model.addAttribute("listSearchResult", postDetailDtoList);
-        return "/views/user/search";
+        return "views/user/search";
     }
 }

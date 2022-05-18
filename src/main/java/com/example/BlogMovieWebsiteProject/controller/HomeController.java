@@ -9,10 +9,7 @@ import com.example.BlogMovieWebsiteProject.service.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,13 +24,13 @@ public class HomeController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/")
+    @RequestMapping("/")
     public String getIndex(Model model){
         List<PostDetailDto> postDetailDtoList = homeService.listPostInHome();
         model.addAttribute("listCategory", categoryService.listCategory());
         model.addAttribute("listPostInHome", postDetailDtoList);
         model.addAttribute("listTopThreePosts", postsService.listTopThreePostsHighestViews());
-        return "/views/index";
+        return "views/index";
     }
 
     @GetMapping("/post/{postId}")
@@ -48,13 +45,13 @@ public class HomeController {
         model.addAttribute("listCategory", categoryService.listCategory());
         model.addAttribute("listAllPost", postsService.listAllPost());
         model.addAttribute("listTopThreePosts", postsService.listTopThreePostsHighestViews());
-        return "/views/user/post/list-post";
+        return "views/user/post/list-post";
     }
 
 
     @GetMapping("/home/search")
     public String showSearchForm(Model model){
-        return "/views/user/search";
+        return "views/user/search";
     }
 
     @GetMapping("/home/search/{searchType}/{keyword}")
@@ -68,6 +65,6 @@ public class HomeController {
         model.addAttribute("keyword", keyword);
         model.addAttribute("searchType", searchType);
         model.addAttribute("listSearchResult", postDetailDtoList);
-        return "/views/user/search";
+        return "views/user/search";
     }
 }

@@ -29,7 +29,7 @@ public class PostsController
     public String showAddNewPostView(Model model){
         model.addAttribute("post", new PostsDto());
         model.addAttribute("listCategory", categoryService.listCategory());
-        return "/views/user/post/new-post";
+        return "views/user/post/new-post";
     }
 
 
@@ -54,7 +54,7 @@ public class PostsController
                                      Model model){
         List<PostDetailDto> postsList = postsService.listPostByUsername(username);
         model.addAttribute("listPostOfUser", postsList);
-        return "/views/user/post/list-my-post";
+        return "views/user/post/list-my-post";
     }
 
     @GetMapping("/{postId}")
