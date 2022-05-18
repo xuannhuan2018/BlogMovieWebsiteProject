@@ -92,8 +92,9 @@ public class PostsRepositoryImpl implements PostsCustomRepository {
     @Override
     public List<SearchHit<Posts>> searchByType(String keyword, String searchType) {
         QueryBuilder boolQuery = boolQuery()
-                .must(wildcardQuery(searchType, "*" + keyword + "*"))
-                .must(matchQuery("browser", true));
+                .must(matchQuery("browser", true))
+                .must(multiMatchQuery(keyword)
+                        .field(searchType));
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(boolQuery).build();
         SearchHits<Posts> postsSearchHits = elasticsearchOperations.search(searchQuery, Posts.class);
         return postsSearchHits.getSearchHits();
