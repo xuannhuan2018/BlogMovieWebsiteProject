@@ -1,0 +1,5 @@
+amazonProperties:
+  endpointUrl: https://s3.us-west-2.amazonaws.com
+  accessKey: AKIAYNTZB4O6DZR7RRXW
+  secretKey: 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
+  bucketName: blog-movies
