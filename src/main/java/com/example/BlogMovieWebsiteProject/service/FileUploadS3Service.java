@@ -38,7 +38,7 @@ public class FileUploadS3Service {
 
     public void saveFileToS3(String fileName, InputStream inputStream) throws AwsServiceException, SdkClientException, IOException {
         S3Client client = this.createS3Client();
-        PutObjectRequest request = PutObjectRequest.builder().bucket(bucketName).key(fileName).acl("public-read").build();
+            PutObjectRequest request = PutObjectRequest.builder().bucket(bucketName).key(fileName).acl("public-read").build();
 
         client.putObject(request, RequestBody.fromInputStream(inputStream, inputStream.available()));
 

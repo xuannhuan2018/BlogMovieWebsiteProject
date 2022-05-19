@@ -57,6 +57,7 @@ public class PostsService {
         String fileImgHeader=StringUtils.cleanPath(Objects.requireNonNull(postsDto.getImgHeader().getOriginalFilename()));
         if(!fileImgHeader.equals("")) {
 //            posts.setImgHeader("ImagesManager/ImgPosts/"+posts.getNumber() + "/" + fileImgHeader);
+            fileImgHeader = "Post " + posts.getNumber() + "/" + fileImgHeader;
             posts.setImgHeader("https://blog-movies.s3.us-west-2.amazonaws.com/" + fileImgHeader);
             fileUploadS3Service.saveFileToS3(fileImgHeader, postsDto.getImgHeader().getInputStream());
 //            fileUploadService.saveFile("ImagesManager/ImgPosts/" + posts.getNumber(), fileImgHeader, postsDto.getImgHeader());
@@ -76,8 +77,9 @@ public class PostsService {
                     String filename=StringUtils.cleanPath(Objects.requireNonNull(item.getImg().getOriginalFilename()));
                     if(!filename.equals("")) {
 //                        itemPosts.setText("ImagesManager/ImgPosts/"+posts.getNumber() + "/" + filename);
+                        filename = "Post " + posts.getNumber() + "/" + filename;
                         itemPosts.setText("https://blog-movies.s3.us-west-2.amazonaws.com/" + filename);
-                        fileUploadS3Service.saveFileToS3(filename, item.getImg().getInputStream());
+                        fileUploadS3Service.saveFileToS3( filename, item.getImg().getInputStream());
 //                        fileUploadService.saveFile("ImagesManager/ImgPosts/" + posts.getNumber(), filename, item.getImg());
                         items.add(itemPosts);
                         index++;
