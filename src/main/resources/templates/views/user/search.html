@@ -61,7 +61,7 @@
                                         <div class="col-lg-6" th:each="item : ${listSearchResult}">
                                             <div class="blog-post">
                                                 <div class="blog-thumb">
-                                                    <a th:href="@{'/post/'+${item.Id}}"><img th:src="@{'/'+${item.imgHeader}}"
+                                                    <a th:href="@{'/post/'+${item.Id}}"><img th:src="@{${item.imgHeader}}"
                                                                                                   width="345px" height="317px"></a>
                                                 </div>
                                                 <div class="down-content">

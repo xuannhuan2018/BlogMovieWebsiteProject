@@ -34,7 +34,7 @@
                                 </div>
                                 <div class="blog-post">
                                     <div class="blog-thumb">
-                                        <img th:src="@{'/'+${postDetail.imgHeader}}" width="100%">
+                                        <img th:src="@{${postDetail.imgHeader}}" width="100%">
                                     </div>
                                     <div class="down-content">
                                         <a href="#"><h4>[[${postDetail.title}]]</h4></a>
@@ -58,7 +58,7 @@
                                             </div>
                                             <div th:if="${#strings.toString(item.getType()) == 'IMG'}">
                                                 <br>
-                                                <img th:src="@{'/'+${item.text}}" width="100%">
+                                                <img th:src="@{${item.text}}" width="100%">
                                             </div>
                                         </div>
                                         <br>

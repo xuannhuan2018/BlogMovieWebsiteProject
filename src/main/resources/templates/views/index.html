@@ -18,7 +18,7 @@
                             <div class="col-lg-12" th:each="post :${listPostInHome}">
                                 <div class="blog-post">
                                     <div class="blog-thumb">
-                                        <a th:href="@{'/post/'+${post.Id}}"><img width="510px" height="365px" th:src="@{'/'+${post.imgHeader}}"></a>
+                                        <a th:href="@{'/post/'+${post.Id}}"><img width="510px" height="365px" th:src="@{${post.imgHeader}}"></a>
                                     </div>
                                     <div class="down-content">
                                         <span></span>

@@ -20,10 +20,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -33,6 +30,9 @@ public class PostsService {
 
     @Autowired
     private final FileUploadService fileUploadService;
+
+    @Autowired
+    private final FileUploadS3Service fileUploadS3Service;
 
     public String createPosts (PostsDto postsDto, String username) throws IOException {
         Posts posts = new Posts();
@@ -45,7 +45,7 @@ public class PostsService {
         posts.setYourRating(postsDto.getYourRating());
         posts.setCreated(date);
         posts.setVisit(0);
-        posts.setBrowser(false);
+        posts.setBrowser(true);
 
         List<Posts> postsList = postsRepository.findAll();
         if(postsList.size() == 0){
@@ -54,10 +54,12 @@ public class PostsService {
         else {
             posts.setNumber(postsList.size() + 1);
         }
-        String fileImgHeader=StringUtils.cleanPath(postsDto.getImgHeader().getOriginalFilename());
+        String fileImgHeader=StringUtils.cleanPath(Objects.requireNonNull(postsDto.getImgHeader().getOriginalFilename()));
         if(!fileImgHeader.equals("")) {
-            posts.setImgHeader("ImagesManager/ImgPosts/"+posts.getNumber() + "/" + fileImgHeader);
-            fileUploadService.saveFile("ImagesManager/ImgPosts/" + posts.getNumber(), fileImgHeader, postsDto.getImgHeader());
+//            posts.setImgHeader("ImagesManager/ImgPosts/"+posts.getNumber() + "/" + fileImgHeader);
+            posts.setImgHeader("https://blog-movies.s3.us-west-2.amazonaws.com/" + fileImgHeader);
+            fileUploadS3Service.saveFileToS3(fileImgHeader, postsDto.getImgHeader().getInputStream());
+//            fileUploadService.saveFile("ImagesManager/ImgPosts/" + posts.getNumber(), fileImgHeader, postsDto.getImgHeader());
         }
 
         if(postsDto.getItemPost()!=null)
@@ -71,10 +73,12 @@ public class PostsService {
                 itemPosts.setType(item.getType());
                 itemPosts.setText(item.getText());
                 if(item.getType()== ItemType.IMG){
-                    String filename=StringUtils.cleanPath(item.getImg().getOriginalFilename());
+                    String filename=StringUtils.cleanPath(Objects.requireNonNull(item.getImg().getOriginalFilename()));
                     if(!filename.equals("")) {
-                        itemPosts.setText("ImagesManager/ImgPosts/"+posts.getNumber() + "/" + filename);
-                        fileUploadService.saveFile("ImagesManager/ImgPosts/" + posts.getNumber(), filename, item.getImg());
+//                        itemPosts.setText("ImagesManager/ImgPosts/"+posts.getNumber() + "/" + filename);
+                        itemPosts.setText("https://blog-movies.s3.us-west-2.amazonaws.com/" + filename);
+                        fileUploadS3Service.saveFileToS3(filename, item.getImg().getInputStream());
+//                        fileUploadService.saveFile("ImagesManager/ImgPosts/" + posts.getNumber(), filename, item.getImg());
                         items.add(itemPosts);
                         index++;
                     }

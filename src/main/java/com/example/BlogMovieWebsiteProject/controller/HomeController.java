@@ -54,7 +54,7 @@ public class HomeController {
         return "views/user/search";
     }
 
-    @GetMapping("/home/search/{searchType}/{keyword}")
+    @GetMapping("/home/search/get   ")
     public String testSearch(@RequestParam(value = "keyword", required = false) String keyword,
                              @RequestParam(value = "searchType", required = false) String searchType,
                              Model model, HttpServletRequest request){

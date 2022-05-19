@@ -34,7 +34,7 @@
                             <div class="col-lg-6" th:each="item : ${listAllPost}">
                                 <div class="blog-post">
                                     <div class="blog-thumb">
-                                        <a th:href="@{'/post/'+${item.Id}}"><img th:src="@{'/'+${item.imgHeader}}"
+                                        <a th:href="@{'/post/'+${item.Id}}"><img th:src="@{${item.imgHeader}}"
                                                                                  width="350px" height="220px"></a>
                                     </div>
                                     <div class="down-content">
