@@ -62,7 +62,11 @@
 			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>s3</artifactId>
 		</dependency>
-<!--		<dependency>-->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+        </dependency>
+        <!--		<dependency>-->
 <!--			<groupId>com.amazonaws</groupId>-->
 <!--			<artifactId>aws-java-sdk</artifactId>-->
 <!--			<version>1.11.133</version>-->

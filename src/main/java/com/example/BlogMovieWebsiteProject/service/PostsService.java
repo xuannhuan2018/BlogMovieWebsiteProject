@@ -3,6 +3,7 @@ package com.example.BlogMovieWebsiteProject.service;
 import com.example.BlogMovieWebsiteProject.dto.ItemPostsDto;
 import com.example.BlogMovieWebsiteProject.dto.PostDetailDto;
 import com.example.BlogMovieWebsiteProject.dto.PostsDto;
+import com.example.BlogMovieWebsiteProject.model.Comment;
 import com.example.BlogMovieWebsiteProject.model.ItemPosts;
 import com.example.BlogMovieWebsiteProject.model.ItemType;
 import com.example.BlogMovieWebsiteProject.model.Posts;
@@ -37,6 +38,7 @@ public class PostsService {
     public String createPosts (PostsDto postsDto, String username) throws IOException {
         Posts posts = new Posts();
         Date date = new Date();
+        List<Comment> commentList = new ArrayList<>();
         posts.setUsername(username);
         posts.setCategory(postsDto.getCategory());
         posts.setTitle(postsDto.getTitle());
@@ -46,6 +48,7 @@ public class PostsService {
         posts.setCreated(date);
         posts.setVisit(0);
         posts.setBrowser(true);
+        posts.setCommentList(commentList);
 
         List<Posts> postsList = postsRepository.findAll();
         if(postsList.size() == 0){
@@ -117,6 +120,17 @@ public class PostsService {
         return postDto;
     }
 
+    public Integer countCommentInPost(String postId){
+        Integer quantityComment = 0;
+        Optional<Posts> opPosts = postsRepository.findById(postId);
+        Posts posts = opPosts.get();
+        quantityComment = posts.getCommentList().size();
+        for (Comment comment: posts.getCommentList()) {
+            quantityComment += comment.getResponseCommentList().size();
+        }
+        return quantityComment;
+    }
+
     public List<PostDetailDto> search(String keyword, String searchType){
         List<SearchHit<Posts>> searchHitList = null;
         List<PostDetailDto> postDetailDtoList = new ArrayList<>();
@@ -180,6 +194,7 @@ public class PostsService {
         postDetailDto.setYourRating(posts.getYourRating());
         postDetailDto.setCreated(posts.getCreated());
         postDetailDto.setVisit(posts.getVisit());
+        postDetailDto.setCommentList(posts.getCommentList());
         postDetailDto.setBrowser(posts.isBrowser());
         return postDetailDto;
     }

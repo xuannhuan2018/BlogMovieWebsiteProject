@@ -3,7 +3,7 @@
       layout:decorate="~{decorator/user}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>[[${postDetail.title}]]</title>
 </head>
 <body>
 <!-- Page Content -->
@@ -66,89 +66,115 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <!--                  <div class="sidebar-item comments">-->
-                                <!--                    <div class="sidebar-heading">-->
-                                <!--                      <h2>4 comments</h2>-->
-                                <!--                    </div>-->
-                                <!--                    <div class="content">-->
-                                <!--                      <ul>-->
-                                <!--                        <li>-->
-                                <!--                          <div class="author-thumb">-->
-                                <!--                            <img src="assets/images/comment-author-01.jpg" alt="">-->
-                                <!--                          </div>-->
-                                <!--                          <div class="right-content">-->
-                                <!--                            <h4>Charles Kate<span>May 16, 2020</span></h4>-->
-                                <!--                            <p>Fusce ornare mollis eros. Duis et diam vitae justo fringilla condimentum eu quis leo. Vestibulum id turpis porttitor sapien facilisis scelerisque. Curabitur a nisl eu lacus convallis eleifend posuere id tellus.</p>-->
-                                <!--                          </div>-->
-                                <!--                        </li>-->
-                                <!--                        <li class="replied">-->
-                                <!--                          <div class="author-thumb">-->
-                                <!--                            <img src="assets/images/comment-author-02.jpg" alt="">-->
-                                <!--                          </div>-->
-                                <!--                          <div class="right-content">-->
-                                <!--                            <h4>Thirteen Man<span>May 20, 2020</span></h4>-->
-                                <!--                            <p>In porta urna sed venenatis sollicitudin. Praesent urna sem, pulvinar vel mattis eget.</p>-->
-                                <!--                          </div>-->
-                                <!--                        </li>-->
-                                <!--                        <li>-->
-                                <!--                          <div class="author-thumb">-->
-                                <!--                            <img src="assets/images/comment-author-03.jpg" alt="">-->
-                                <!--                          </div>-->
-                                <!--                          <div class="right-content">-->
-                                <!--                            <h4>Belisimo Mama<span>May 16, 2020</span></h4>-->
-                                <!--                            <p>Nullam nec pharetra nibh. Cras tortor nulla, faucibus id tincidunt in, ultrices eget ligula. Sed vitae suscipit ligula. Vestibulum id turpis volutpat, lobortis turpis ac, molestie nibh.</p>-->
-                                <!--                          </div>-->
-                                <!--                        </li>-->
-                                <!--                        <li class="replied">-->
-                                <!--                          <div class="author-thumb">-->
-                                <!--                            <img src="assets/images/comment-author-02.jpg" alt="">-->
-                                <!--                          </div>-->
-                                <!--                          <div class="right-content">-->
-                                <!--                            <h4>Thirteen Man<span>May 22, 2020</span></h4>-->
-                                <!--                            <p>Mauris sit amet justo vulputate, cursus massa congue, vestibulum odio. Aenean elit nunc, gravida in erat sit amet, feugiat viverra leo.</p>-->
-                                <!--                          </div>-->
-                                <!--                        </li>-->
-                                <!--                      </ul>-->
-                                <!--                    </div>-->
-                                <!--                  </div>-->
-                                <!--                </div>-->
-                                <!--                <div class="col-lg-12">-->
-                                <!--                  <div class="sidebar-item submit-comment">-->
-                                <!--                    <div class="sidebar-heading">-->
-                                <!--                      <h2>Your comment</h2>-->
-                                <!--                    </div>-->
-                                <!--                    <div class="content">-->
-                                <!--                      <form id="comment" action="#" method="post">-->
-                                <!--                        <div class="row">-->
-                                <!--                          <div class="col-md-6 col-sm-12">-->
-                                <!--                            <fieldset>-->
-                                <!--                              <input name="name" type="text" id="name" placeholder="Your name" required="">-->
-                                <!--                            </fieldset>-->
-                                <!--                          </div>-->
-                                <!--                          <div class="col-md-6 col-sm-12">-->
-                                <!--                            <fieldset>-->
-                                <!--                              <input name="email" type="text" id="email" placeholder="Your email" required="">-->
-                                <!--                            </fieldset>-->
-                                <!--                          </div>-->
-                                <!--                          <div class="col-md-12 col-sm-12">-->
-                                <!--                            <fieldset>-->
-                                <!--                              <input name="subject" type="text" id="subject" placeholder="Subject">-->
-                                <!--                            </fieldset>-->
-                                <!--                          </div>-->
-                                <!--                          <div class="col-lg-12">-->
-                                <!--                            <fieldset>-->
-                                <!--                              <textarea name="message" rows="6" id="message" placeholder="Type your comment" required=""></textarea>-->
-                                <!--                            </fieldset>-->
-                                <!--                          </div>-->
-                                <!--                          <div class="col-lg-12">-->
-                                <!--                            <fieldset>-->
-                                <!--                              <button type="submit" id="form-submit" class="main-button">Submit</button>-->
-                                <!--                            </fieldset>-->
-                                <!--                          </div>-->
-                                <!--                        </div>-->
-                                <!--                      </form>-->
-                                <!--                    </div>-->
-                                <!--                  </div>-->
+                                <div class="sidebar-item comments">
+                                    <div class="sidebar-heading">
+                                        <h2> [[${quantityComment}]] bình luận</h2>
+                                    </div>
+                                    <div class="content">
+                                        <ul>
+                                            <th:block th:each="comment : ${postDetail.commentList}">
+                                                <div class="main-comment" th:nonce="${comment.commentId}">
+                                                    <li>
+                                                        <div class="author-thumb">
+                                                            <img th:src="@{/assets/images/comment-author-01.jpg}"
+                                                                 alt="">
+                                                        </div>
+                                                        <div class="right-content">
+                                                            <span class="hide-username" style="display: none">[[${comment.username}]]</span>
+                                                            <h4>[[${comment.username}]] &ensp;&ensp;<span
+                                                                    th:text="${#dates.format(comment.createTime, 'dd-MM-yyyy HH:mm:ss')}"></span>
+                                                            </h4>
+                                                            <p> [[${comment.content}]]</p>
+                                                            <a style="font-size: 16px;color: #aaa;font-weight: 400;letter-spacing: 0.25px;"
+                                                               class="replybutton"
+                                                               th:data-commentbox="${comment.commentId}"
+                                                               th:if="${session.user}"><u><i>Phản
+                                                                hồi</i></u></a><br/>
+                                                            <div class="replybox" th:id="${comment.commentId}"
+                                                                 style="display:none">
+                                                                <textarea
+                                                                        class="col-md-12 col-sm-12 content-comment"></textarea><br/>
+                                                                <button style="background-color: #f48840; border-color: #f48840"
+                                                                        class="btn btn-info" onclick="reply(this)">Bình
+                                                                    luận
+                                                                </button>
+                                                                <button class="btn btn-danger cancelbutton">Hủy</button>
+                                                                <br/><br/>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <br>
+                                                    <th:block th:each="responseComment :${comment.responseCommentList}">
+                                                        <li class="replied">
+                                                            <div class="author-thumb">
+                                                                <img th:src="@{/assets/images/comment-author-02.jpg}"
+                                                                     alt="">
+                                                            </div>
+                                                            <div class="right-content">
+                                                                <span class="hide-username" style="display: none">[[${responseComment.username}]]</span>
+                                                                <h4>[[${responseComment.username}]] &ensp;&ensp;<span
+                                                                        th:text="${#dates.format(responseComment.replyTime, 'dd-MM-yyyy HH:mm:ss')}"></span>
+                                                                </h4>
+                                                                <p>[[${responseComment.replyContent}]]</p>
+                                                                <a style="font-size: 16px;color: #aaa;font-weight: 400;letter-spacing: 0.25px;"
+                                                                   class="replybutton"
+                                                                   th:data-commentbox="${#dates.format(responseComment.replyTime, 'ddMMyyyyHHmmss')}"
+                                                                   th:if="${session.user}"><u><i>Phản
+                                                                    hồi</i></u></a><br/>
+                                                                <div class="replybox"
+                                                                     th:id="${#dates.format(responseComment.replyTime, 'ddMMyyyyHHmmss')}"
+                                                                     style="display:none">
+                                                                    <textarea
+                                                                            class="col-md-12 col-sm-12 content-comment"></textarea><br/>
+                                                                    <button style="background-color: #f48840; border-color: #f48840"
+                                                                            class="btn btn-info" onclick="reply(this)">
+                                                                        Bình luận
+                                                                    </button>
+                                                                    <button class="btn btn-danger cancelbutton">Hủy
+                                                                    </button>
+                                                                    <br/><br/>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        <br>
+                                                    </th:block>
+                                                </div>
+                                            </th:block>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="sidebar-item submit-comment">
+                                    <div class="sidebar-heading">
+                                        <h2>Bình luận của bạn</h2>
+                                    </div>
+                                    <div class="content">
+                                        <form id="comment" th:action="@{'/post/' + ${postId} + '/comment'}"
+                                              method="post">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <fieldset>
+                                                        <textarea name="message" rows="6" id="message"
+                                                                  placeholder="Nhập bình luận ở đâyyyyy..."
+                                                                  style="text-transform: none"
+                                                                  required></textarea>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="col-lg-12">
+                                                    <fieldset>
+                                                        <button type="submit" id="form-submit" class="main-button"
+                                                                th:if="${session.user}">Submit
+                                                        </button>
+                                                        <button type="button" id="form-submitt" class="main-button"
+                                                                onclick="checkUser()" th:unless="${session.user}">Submit
+                                                        </button>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -193,7 +219,8 @@
                                     <div class="content">
                                         <ul>
                                             <th:block th:each="category:${listCategory}">
-                                                <li><a th:href="@{'/home/search/category/get/'+${category}}">- [[${category}]]</a></li>
+                                                <li><a th:href="@{'/home/search/category/get/'+${category}}">-
+                                                    [[${category}]]</a></li>
                                             </th:block>
                                         </ul>
                                     </div>
@@ -218,8 +245,87 @@
                 </div>
             </div>
         </div>
-        <script>
+        <script type="text/javascript">
             $('#post').addClass('active');
+        </script>
+        <script type="text/javascript" th:inline="javascript" th:if="${alertNoUser}">
+            //When no user session
+            function checkUser() {
+                alert([[${alertNoUser}]]);
+                openLoginModal();
+            }
+        </script>
+        <script type="text/javascript" th:inline="javascript">
+            function reply(x) {
+                //Get content of comment
+                let content = $(x).closest('.replybox').children().closest('textarea').val();
+                //Get current time - reply time
+                let time = Date.now();
+                let d = new Date;
+                //Process with values < 10, append 0 before each attribute of date
+                Number.prototype.padLeft = function (base, chr) {
+                    var len = (String(base || 10).length - String(this).length) + 1;
+                    return len > 0 ? new Array(len).join(chr || '0') + this : this;
+                }
+                //Format date to yyyy-MM-dd HH:mm:ss
+                let dformat = [d.getDate().padLeft(),
+                        (d.getMonth() + 1).padLeft(),
+                        d.getFullYear().padLeft()].join('-') + ' ' +
+                    [d.getHours().padLeft(),
+                        d.getMinutes().padLeft(),
+                        d.getSeconds().padLeft()].join(':');
+                //Get information of reply comment
+                let postId = [[${postId}]];
+                let commentId = $(x).closest('.main-comment')[0].nonce;
+                let user = [[${session.user}]];
+                let username = "no-user";
+                if (user !== null) {
+                    username = user.username;
+                }
+                //Post url
+                let url = "/post/comment/reply";
+                //Ajax to create reply comment to DB
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        "commentId": commentId,
+                        "username": username,
+                        "postId": postId,
+                        "replyContent": content,
+                    },
+                    success: function () {
+                        $(x).closest('.main-comment').append("<li class='replied'> <div class='author-thumb'>" +
+                            "<img src='/assets/images/comment-author-02.jpg'> </div> " +
+                            "<div class='right-content'><span class='hide-username' style='display: none'>" + username +"</span>" +
+                            "<h4>" + username + "&ensp;&ensp;<span>" + dformat + "</span></h4> <p>" + content + "</p> " +
+                            "<a style='font-size: 16px;color: #aaa;font-weight: 400;letter-spacing: 0.25px;' class='replybutton'\n" +
+                            "                                                       data-commentbox='" + time + "'><u><i>Phản hồi</i></u></a><br/>\n" +
+                            "                                                    <div class='replybox' id='" + time + "' style='display:none'>\n" +
+                            "                                                        <textarea\n" +
+                            "                                                                class='col-md-12 col-sm-12 content-comment'></textarea><br/>\n" +
+                            "                                                        <button class='btn btn-info' style='background-color: #f48840; border-color: #f48840' onclick='reply(this)'>Gửi</button>\n" +
+                            "                                                        <button class='btn btn-danger cancelbutton'>Hủy</button>\n" +
+                            "                                                        <br/><br/>\n" +
+                            "                                                    </div></div></li><br>");
+                        $(x).closest('.replybox').children().closest('textarea')[0].value = "";
+                        $('.replybox').hide();
+                        ;
+                    }
+                });
+            }
+        </script>
+        <script>
+            $(document).on("click", ".replybutton", function () {
+                $('.replybox').hide();
+                let commentboxId = $(this).attr('data-commentbox');
+                let replyUsername = $(this).closest('.right-content').children().closest('.hide-username').text();
+                $(this).closest('.right-content').children().closest('.replybox').children().closest('textarea')[0].value = "@" + replyUsername + " ";
+                $('#' + commentboxId).toggle();
+            });
+            $(document).on("click", ".cancelbutton", function () {
+                $('.replybox').hide();
+            })
         </script>
     </section>
 </div>

@@ -1,5 +1,6 @@
 package com.example.BlogMovieWebsiteProject.dto;
 
+import com.example.BlogMovieWebsiteProject.model.Comment;
 import com.example.BlogMovieWebsiteProject.model.ItemPosts;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -35,5 +36,6 @@ public class PostDetailDto {
     @Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date created;
     private Integer visit;
+    private List<Comment> commentList;
     private boolean browser;
 }

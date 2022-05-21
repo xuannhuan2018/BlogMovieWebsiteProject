@@ -3,20 +3,23 @@ package com.example.BlogMovieWebsiteProject.controller;
 
 import com.example.BlogMovieWebsiteProject.dto.PostDetailDto;
 import com.example.BlogMovieWebsiteProject.model.Posts;
+import com.example.BlogMovieWebsiteProject.model.Users;
 import com.example.BlogMovieWebsiteProject.service.CategoryService;
 import com.example.BlogMovieWebsiteProject.service.HomeService;
 import com.example.BlogMovieWebsiteProject.service.PostsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-public class HomeController {
+public class HomeController implements ErrorController {
     @Autowired
     private HomeService homeService;
     @Autowired
@@ -35,7 +38,12 @@ public class HomeController {
 
     @GetMapping("/post/{postId}")
     public String viewDetailPost(@PathVariable(name = "postId")String postId,
-                                 Model model, HttpServletRequest request){
+                                 Model model, HttpServletRequest request, HttpSession session){
+        Users user = (Users)session.getAttribute("user");
+        if(user == null){
+            model.addAttribute("alertNoUser", "Bạn cần đăng nhập tài khoản để tiến hành bình luận");
+        }
+        model.addAttribute("quantityComment", postsService.countCommentInPost(postId));
         model.addAttribute("listCategory", categoryService.listCategory());
         model.addAttribute("postDetail", postsService.viewDetailPost(postId, request));
         return "views/user/post/view-detail-post";
@@ -54,7 +62,7 @@ public class HomeController {
         return "views/user/search";
     }
 
-    @GetMapping("/home/search/get   ")
+    @GetMapping("/home/search/get")
     public String testSearch(@RequestParam(value = "keyword", required = false) String keyword,
                              @RequestParam(value = "searchType", required = false) String searchType,
                              Model model, HttpServletRequest request){
@@ -66,5 +74,10 @@ public class HomeController {
         model.addAttribute("searchType", searchType);
         model.addAttribute("listSearchResult", postDetailDtoList);
         return "views/user/search";
+    }
+
+    @GetMapping("/error")
+    public String handleError(){
+        return "/views/error";
     }
 }
