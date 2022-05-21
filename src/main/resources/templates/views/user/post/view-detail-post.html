@@ -76,7 +76,7 @@
                                                 <div class="main-comment" th:nonce="${comment.commentId}">
                                                     <li>
                                                         <div class="author-thumb">
-                                                            <img th:src="@{/assets/images/comment-author-01.jpg}"
+                                                            <img th:src="@{/assets/images/avatar.jpg}"
                                                                  alt="">
                                                         </div>
                                                         <div class="right-content">
@@ -107,7 +107,7 @@
                                                     <th:block th:each="responseComment :${comment.responseCommentList}">
                                                         <li class="replied">
                                                             <div class="author-thumb">
-                                                                <img th:src="@{/assets/images/comment-author-02.jpg}"
+                                                                <img th:src="@{/assets/images/avatar.jpg}"
                                                                      alt="">
                                                             </div>
                                                             <div class="right-content">
@@ -286,7 +286,7 @@
                     },
                     success: function () {
                         $(x).closest('.main-comment').append("<li class='replied'> <div class='author-thumb'>" +
-                            "<img src='/assets/images/comment-author-02.jpg'> </div> " +
+                            "<img src='/assets/images/avatar.jpg'> </div> " +
                             "<div class='right-content'><span class='hide-username' style='display: none'>" + username +"</span>" +
                             "<h4>" + username + "&ensp;&ensp;<span>" + dformat + "</span></h4> <p>" + content + "</p> " +
                             "<a style='font-size: 16px;color: #aaa;font-weight: 400;letter-spacing: 0.25px;' class='replybutton'\n" +
