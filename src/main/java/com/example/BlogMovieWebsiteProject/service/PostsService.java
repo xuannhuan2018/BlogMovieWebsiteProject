@@ -171,11 +171,21 @@ public class PostsService {
             PostDetailDto postDetailDto = new PostDetailDto();
             postDetailDto.setId(posts.getId());
             postDetailDto.setTitle(posts.getTitle());
-            postDetailDto.setUsername(posts.getUsername());
             postDetailDto.setCreated(posts.getCreated());
-            postDetailDto.setDescription(posts.getDescription());
-            postDetailDto.setCategory(posts.getCategory());
-            postDetailDto.setImgHeader(posts.getImgHeader());
+            postDetailDtoLists.add(postDetailDto);
+        }
+        return postDetailDtoLists;
+    }
+
+    public List<PostDetailDto> listTopThreeRelatedPosts(String category){
+        List<PostDetailDto> postDetailDtoLists = new ArrayList<>();
+        List<SearchHit<Posts>> postsSearchHitList = postsRepository.findThreeRelatedPosts(category);
+        for (SearchHit<Posts> postsSearchHit : postsSearchHitList) {
+            Posts posts = postsSearchHit.getContent();
+            PostDetailDto postDetailDto = new PostDetailDto();
+            postDetailDto.setTitle(posts.getTitle());
+            postDetailDto.setId(posts.getId());
+            postDetailDto.setCreated(posts.getCreated());
             postDetailDtoLists.add(postDetailDto);
         }
         return postDetailDtoLists;

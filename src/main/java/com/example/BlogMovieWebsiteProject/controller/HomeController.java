@@ -43,9 +43,11 @@ public class HomeController implements ErrorController {
         if(user == null){
             model.addAttribute("alertNoUser", "Bạn cần đăng nhập tài khoản để tiến hành bình luận");
         }
+        PostDetailDto postDetailDto = postsService.viewDetailPost(postId, request);
         model.addAttribute("quantityComment", postsService.countCommentInPost(postId));
         model.addAttribute("listCategory", categoryService.listCategory());
-        model.addAttribute("postDetail", postsService.viewDetailPost(postId, request));
+        model.addAttribute("listRelatedPost", postsService.listTopThreeRelatedPosts(postDetailDto.getCategory().get(0)));
+        model.addAttribute("postDetail", postDetailDto);
         return "views/user/post/view-detail-post";
     }
     @GetMapping("/home/all-post")

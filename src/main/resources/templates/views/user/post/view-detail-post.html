@@ -189,24 +189,14 @@
                                     </div>
                                     <div class="content">
                                         <ul>
-                                            <li>
-                                                <a href="post-details.html">
-                                                    <h6 style="color: black">(Tựa đề)</h6>
-                                                    <span>(Ngày tạo)</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="post-details.html">
-                                                    <h6 style="color: black">(Tựa đề)</h6>
-                                                    <span>(Ngày tạo)</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="post-details.html">
-                                                    <h6 style="color: black">(Tựa đề)</h6>
-                                                    <span>(Ngày tạo)</span>
-                                                </a>
-                                            </li>
+                                            <th:block  th:each="posts :${listRelatedPost}">
+                                                <li>
+                                                    <a th:href="@{'/post/'+${posts.Id}}">
+                                                        <h6 style="color: black">[[${posts.title}]]</h6>
+                                                        <span>[[${posts.created}]]</span>
+                                                    </a>
+                                                </li>
+                                            </th:block>
                                         </ul>
                                     </div>
                                 </div>

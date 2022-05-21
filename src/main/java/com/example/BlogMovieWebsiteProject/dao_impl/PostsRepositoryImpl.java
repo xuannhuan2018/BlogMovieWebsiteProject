@@ -7,7 +7,7 @@ import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilder;
 
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +97,17 @@ public class PostsRepositoryImpl implements PostsCustomRepository {
                         .field(searchType)
                         .operator(Operator.AND));
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(boolQuery).build();
+        SearchHits<Posts> postsSearchHits = elasticsearchOperations.search(searchQuery, Posts.class);
+        return postsSearchHits.getSearchHits();
+    }
+
+    @Override
+    public List<SearchHit<Posts>> findThreeRelatedPosts(String category) {
+        QueryBuilder boolQuery = boolQuery()
+                .must(matchQuery("browser", true))
+                .must(matchQuery("category", category))
+                .must(functionScoreQuery(ScoreFunctionBuilders.randomFunction()));
+        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(boolQuery).withMaxResults(3).build();
         SearchHits<Posts> postsSearchHits = elasticsearchOperations.search(searchQuery, Posts.class);
         return postsSearchHits.getSearchHits();
     }
