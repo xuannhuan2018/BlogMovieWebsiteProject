@@ -11,8 +11,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.Date;
 
 @Getter

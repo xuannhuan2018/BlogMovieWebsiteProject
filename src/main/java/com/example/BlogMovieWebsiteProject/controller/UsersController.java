@@ -1,8 +1,6 @@
 package com.example.BlogMovieWebsiteProject.controller;
 
 import com.example.BlogMovieWebsiteProject.dto.UsersDto;
-import com.example.BlogMovieWebsiteProject.model.Users;
-import com.example.BlogMovieWebsiteProject.service.AuthenticationService;
 import com.example.BlogMovieWebsiteProject.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +18,6 @@ public class UsersController
 {
     @Autowired
     private UsersService usersService;
-
-    @Autowired
-    private AuthenticationService authenticationService;
 
     @PostMapping("/register")
     public String signUpUser(@RequestParam(value = "username", required = false) String username,

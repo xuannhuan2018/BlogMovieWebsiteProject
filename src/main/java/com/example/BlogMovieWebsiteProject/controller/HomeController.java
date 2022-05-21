@@ -1,8 +1,7 @@
 package com.example.BlogMovieWebsiteProject.controller;
 
-
 import com.example.BlogMovieWebsiteProject.dto.PostDetailDto;
-import com.example.BlogMovieWebsiteProject.model.Posts;
+
 import com.example.BlogMovieWebsiteProject.model.Users;
 import com.example.BlogMovieWebsiteProject.service.CategoryService;
 import com.example.BlogMovieWebsiteProject.service.HomeService;
@@ -12,7 +11,6 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -44,7 +42,6 @@ public class HomeController implements ErrorController {
             model.addAttribute("alertNoUser", "Bạn cần đăng nhập tài khoản để tiến hành bình luận");
         }
         PostDetailDto postDetailDto = postsService.viewDetailPost(postId, request);
-        model.addAttribute("quantityComment", postsService.countCommentInPost(postId));
         model.addAttribute("listCategory", categoryService.listCategory());
         model.addAttribute("listRelatedPost", postsService.listTopThreeRelatedPosts(postDetailDto.getCategory().get(0)));
         model.addAttribute("postDetail", postDetailDto);
@@ -60,14 +57,14 @@ public class HomeController implements ErrorController {
 
 
     @GetMapping("/home/search")
-    public String showSearchForm(Model model){
+    public String showSearchForm(){
         return "views/user/search";
     }
 
     @GetMapping("/home/search/get")
     public String testSearch(@RequestParam(value = "keyword", required = false) String keyword,
                              @RequestParam(value = "searchType", required = false) String searchType,
-                             Model model, HttpServletRequest request){
+                             Model model){
         if(searchType == null){
             searchType = "all";
         }

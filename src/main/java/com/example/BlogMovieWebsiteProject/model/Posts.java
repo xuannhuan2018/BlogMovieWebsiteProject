@@ -1,6 +1,5 @@
 package com.example.BlogMovieWebsiteProject.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,13 +7,9 @@ import lombok.Setter;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
-import org.yaml.snakeyaml.introspector.FieldProperty;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
-
-import static org.springframework.data.elasticsearch.annotations.FieldType.Text;
 
 @Getter
 @Setter

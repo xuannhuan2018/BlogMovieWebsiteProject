@@ -1,8 +1,6 @@
 package com.example.BlogMovieWebsiteProject.dto;
 
 import com.example.BlogMovieWebsiteProject.model.Comment;
-import com.example.BlogMovieWebsiteProject.model.ItemPosts;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
