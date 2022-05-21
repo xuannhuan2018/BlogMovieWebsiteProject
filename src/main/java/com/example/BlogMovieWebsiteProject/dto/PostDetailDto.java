@@ -37,5 +37,6 @@ public class PostDetailDto {
     private Date created;
     private Integer visit;
     private List<Comment> commentList;
+    private Integer quantityComment;
     private boolean browser;
 }

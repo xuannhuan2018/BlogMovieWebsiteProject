@@ -48,7 +48,8 @@ public class Posts {
     private Date created;
     @Field(type = FieldType.Integer)
     private Integer visit;
-
+    @Field(type = FieldType.Integer)
+    private Integer quantityComment;
     private List<Comment> commentList;
     @Field(type = FieldType.Boolean)
     private boolean browser;

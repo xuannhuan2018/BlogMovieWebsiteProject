@@ -39,6 +39,7 @@ public class CommentService {
         }
         commentList.add(comment);
         posts.setCommentList(commentList);
+        posts.setQuantityComment(posts.getQuantityComment()+1);
         postsRepository.save(posts);
     }
     public void replyComment(String postId, String username, String replyContent, String commentId){
@@ -59,6 +60,7 @@ public class CommentService {
         responseComment.setReplyContent(replyContent);
         responseComment.setReplyTime(date);
         responseCommentList.add(responseComment);
+        posts.setQuantityComment(posts.getQuantityComment()+1);
         postsRepository.save(posts);
     }
     public String createCommentId() {

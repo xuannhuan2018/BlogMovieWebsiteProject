@@ -47,6 +47,7 @@ public class PostsService {
         posts.setYourRating(postsDto.getYourRating());
         posts.setCreated(date);
         posts.setVisit(0);
+        posts.setQuantityComment(0);
         posts.setBrowser(true);
         posts.setCommentList(commentList);
 
@@ -204,6 +205,7 @@ public class PostsService {
         postDetailDto.setYourRating(posts.getYourRating());
         postDetailDto.setCreated(posts.getCreated());
         postDetailDto.setVisit(posts.getVisit());
+        postDetailDto.setQuantityComment(posts.getQuantityComment());
         postDetailDto.setCommentList(posts.getCommentList());
         postDetailDto.setBrowser(posts.isBrowser());
         return postDetailDto;
