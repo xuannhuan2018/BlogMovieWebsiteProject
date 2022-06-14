@@ -68,7 +68,7 @@
                             <div class="col-lg-12">
                                 <div class="sidebar-item comments">
                                     <div class="sidebar-heading">
-                                        <h2> [[${postDetail.quantityComment}]] bình luận</h2>
+                                        <h2 id="commentQuantity"> [[${postDetail.quantityComment}]] bình luận</h2>
                                     </div>
                                     <div class="content">
                                         <ul>
@@ -95,7 +95,7 @@
                                                                 <textarea
                                                                         class="col-md-12 col-sm-12 content-comment"></textarea><br/>
                                                                 <button style="background-color: #f48840; border-color: #f48840"
-                                                                        class="btn btn-info" onclick="reply(this)">Bình
+                                                                        th:id="${comment.commentId}+'comment'" class="btn btn-info" onclick="reply(this)">Bình
                                                                     luận
                                                                 </button>
                                                                 <button class="btn btn-danger cancelbutton">Hủy</button>
@@ -127,7 +127,7 @@
                                                                     <textarea
                                                                             class="col-md-12 col-sm-12 content-comment"></textarea><br/>
                                                                     <button style="background-color: #f48840; border-color: #f48840"
-                                                                            class="btn btn-info" onclick="reply(this)">
+                                                                            th:id="${#dates.format(responseComment.replyTime, 'ddMMyyyyHHmmss')} + 'reply'" class="btn btn-info" onclick="reply(this)">
                                                                         Bình luận
                                                                     </button>
                                                                     <button class="btn btn-danger cancelbutton">Hủy
@@ -164,10 +164,10 @@
                                                 <div class="col-lg-12">
                                                     <fieldset>
                                                         <button type="submit" id="form-submit" class="main-button"
-                                                                th:if="${session.user}">Submit
+                                                                onclick="comment()" th:if="${session.user}">Gửi
                                                         </button>
                                                         <button type="button" id="form-submitt" class="main-button"
-                                                                onclick="checkUser()" th:unless="${session.user}">Submit
+                                                                onclick="checkUser()" th:unless="${session.user}">Gửi
                                                         </button>
                                                     </fieldset>
                                                 </div>
@@ -189,7 +189,7 @@
                                     </div>
                                     <div class="content">
                                         <ul>
-                                            <th:block  th:each="posts :${listRelatedPost}">
+                                            <th:block th:each="posts :${listRelatedPost}">
                                                 <li>
                                                     <a th:href="@{'/post/'+${posts.Id}}">
                                                         <h6 style="color: black">[[${posts.title}]]</h6>
@@ -246,7 +246,34 @@
             }
         </script>
         <script type="text/javascript" th:inline="javascript">
+            let stompClient = null;
+            let dataForWS;
+            function justNumbers(string)
+            {
+                let numsStr = string.replace(/[^0-9]/g,'');
+                return parseInt(numsStr);
+            }
+            $(document).ready(function () {
+                connect();
+            });
+
+            function connect() {
+                //create connection
+                let socket = new SockJS('/connect');
+                stompClient = Stomp.over(socket);
+                stompClient.connect({}, function () {
+                    console.log('Web Socket is connected');
+                    //subscribe toi url chua endpoint de nhan message tu server
+                    stompClient.subscribe("/post/comment/reply", function (message) {
+                        let messageObject = JSON.parse(message.body);
+                        let button = $('#'+messageObject.buttonId)[0];
+                        addComment(button, messageObject);
+                    });
+                });
+            }
+
             function reply(x) {
+                let buttonId = x.id;
                 //Get content of comment
                 let content = $(x).closest('.replybox').children().closest('textarea').val();
                 //Get current time - reply time
@@ -282,30 +309,31 @@
                         "commentId": commentId,
                         "username": username,
                         "postId": postId,
-                        "replyContent": content,
+                        "replyContent": content
                     },
                     success: function () {
-                        $(x).closest('.main-comment').append("<li class='replied'> <div class='author-thumb'>" +
-                            "<img src='/assets/images/avatar.jpg'> </div> " +
-                            "<div class='right-content'><span class='hide-username' style='display: none'>" + username +"</span>" +
-                            "<h4>" + username + "&ensp;&ensp;<span>" + dformat + "</span></h4> <p>" + content + "</p> " +
-                            "<a style='font-size: 16px;color: #aaa;font-weight: 400;letter-spacing: 0.25px;' class='replybutton'\n" +
-                            "                                                       data-commentbox='" + time + "'><u><i>Phản hồi</i></u></a><br/>\n" +
-                            "                                                    <div class='replybox' id='" + time + "' style='display:none'>\n" +
-                            "                                                        <textarea\n" +
-                            "                                                                class='col-md-12 col-sm-12 content-comment'></textarea><br/>\n" +
-                            "                                                        <button class='btn btn-info' style='background-color: #f48840; border-color: #f48840' onclick='reply(this)'>Gửi</button>\n" +
-                            "                                                        <button class='btn btn-danger cancelbutton'>Hủy</button>\n" +
-                            "                                                        <br/><br/>\n" +
-                            "                                                    </div></div></li><br>");
-                        $(x).closest('.replybox').children().closest('textarea')[0].value = "";
+                        dataForWS = {
+                            "commentId": commentId,
+                            "username": username,
+                            "postId": postId,
+                            "replyContent": content,
+                            "time": time,
+                            "dformat": dformat,
+                            "buttonId": buttonId
+                        }
+                        stompClient.send("/app/comment/reply/content", {}, JSON.stringify(dataForWS));
                         $('.replybox').hide();
                         ;
                     }
                 });
             }
-        </script>
-        <script>
+            function comment(){
+                let commentQuantity = justNumbers($('#commentQuantity')[0].outerText)+1;
+                $('#commentQuantity').html(commentQuantity + ' BÌNH LUẬN');
+
+
+            }
+
             $(document).on("click", ".replybutton", function () {
                 $('.replybox').hide();
                 let commentboxId = $(this).attr('data-commentbox');
@@ -316,6 +344,25 @@
             $(document).on("click", ".cancelbutton", function () {
                 $('.replybox').hide();
             })
+
+            function addComment(x, data){
+                $(x).closest('.main-comment').append("<li class='replied'> <div class='author-thumb'>" +
+                    "<img src='/assets/images/avatar.jpg'> </div> " +
+                    "<div class='right-content'><span class='hide-username' style='display: none'>" + data.username + "</span>" +
+                    "<h4>" + data.username + "&ensp;&ensp;<span>" + data.dformat + "</span></h4> <p>" + data.replyContent + "</p> " +
+                    "<a style='font-size: 16px;color: #aaa;font-weight: 400;letter-spacing: 0.25px;' class='replybutton'\n" +
+                    "                                                       data-commentbox='" + data.time + "'><u><i>Phản hồi</i></u></a><br/>\n" +
+                    "                                                    <div class='replybox' id='" + data.time + "' style='display:none'>\n" +
+                    "                                                        <textarea\n" +
+                    "                                                                class='col-md-12 col-sm-12 content-comment'></textarea><br/>\n" +
+                    "                                                        <button class='btn btn-info' id='" + data.time + "reply' style='background-color: #f48840; border-color: #f48840' onclick='reply(this)'>Bình luận</button>\n" +
+                    "                                                        <button class='btn btn-danger cancelbutton'>Hủy</button>\n" +
+                    "                                                        <br/><br/>\n" +
+                    "                                                    </div></div></li><br>");
+                $(x).closest('.replybox').children().closest('textarea')[0].value = "";
+                let commentQuantity = justNumbers($('#commentQuantity')[0].outerText)+1;
+                $('#commentQuantity').html(commentQuantity + ' BÌNH LUẬN')
+            }
         </script>
     </section>
 </div>

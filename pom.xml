@@ -62,10 +62,15 @@
 			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>s3</artifactId>
 		</dependency>
+<!--		RandomString-->
         <dependency>
             <groupId>net.bytebuddy</groupId>
             <artifactId>byte-buddy</artifactId>
         </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
         <!--		<dependency>-->
 <!--			<groupId>com.amazonaws</groupId>-->
 <!--			<artifactId>aws-java-sdk</artifactId>-->
